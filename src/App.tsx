@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Suspense, useState } from "react";
+import { useEffect } from "react";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { THEME_PREFIX } from "./assets/constants/consts";
+import useLocalStorage from "./Hooks/useLocalStorage";
+import GlobalStyles from "./styles/globalStyles.d";
+import Spinner from "./Components/Spinner/Spinner";
+import { Dark, Light } from "./assets/constants/colors";
 
-function App() {
+export default function App() {
+  const { getFromLocalStorage } = useLocalStorage();
+  const [theme, setTheme] = useState(getFromLocalStorage(THEME_PREFIX));
+  const [loaded, setLoaded] = useState(false);
+
+  const HideLoader = () => setLoaded(true);
+
+  useEffect(() => {
+    window.addEventListener("load", HideLoader);
+    return () => window.removeEventListener("load", HideLoader);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Suspense fallback={<Spinner />}>
+      <ThemeProvider theme={theme === "Light" ? Light : Dark}>
+        <GlobalStyles />
+        <Router>
+          <Switch></Switch>
+        </Router>
+      </ThemeProvider>
+    </Suspense>
   );
 }
-
-export default App;

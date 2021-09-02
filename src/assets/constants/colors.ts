@@ -1,0 +1,25 @@
+export const Light = {
+  primaryColor: "white",
+  secondaryColor: "#121212",
+  codeColor: "black",
+  seaBlue: "#4a62ff",
+  brown: "#FFAA00",
+  textColor: "black",
+  darkSea: "#23223d",
+  borderColor: "rgba(0,0,0,0.2)",
+  lightGreen: "#00BF69",
+  lightGrey: "#EBEBEB",
+};
+export const Dark = {
+  primaryColor: "#1E1E1E",
+  secondaryColor: "white",
+  ternaryColor: "#111111",
+  codeColor: "black",
+  seaBlue: "#4a62ff",
+  brown: "#FFAA00",
+  textColor: "white",
+  darkSea: "#23223d",
+  borderColor: "rgba(255,255,255,0.4)",
+  lightGreen: "#00BF69",
+  lightGrey: "#EBEBEB",
+};
