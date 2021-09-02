@@ -6,7 +6,7 @@ const GlobalStyles = createGlobalStyle`
         *::before{
             margin: 0;
             box-sizing: border-box;
-            font-family: sans-serif;
+            font-family: "Poppins",sans-serif;
             padding: 0;
         }
 `;

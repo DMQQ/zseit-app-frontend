@@ -7,6 +7,9 @@ import useLocalStorage from "./Hooks/useLocalStorage";
 import GlobalStyles from "./styles/globalStyles.d";
 import Spinner from "./Components/Spinner/Spinner";
 import { Dark, Light } from "./assets/constants/colors";
+import { HOME } from "./assets/constants/routes";
+import Home from "./Pages/Home/Home";
+import Header from "./Components/Header/Header";
 
 export default function App() {
   const { getFromLocalStorage } = useLocalStorage();
@@ -25,7 +28,10 @@ export default function App() {
       <ThemeProvider theme={theme === "Light" ? Light : Dark}>
         <GlobalStyles />
         <Router>
-          <Switch></Switch>
+          <Header />
+          <Switch>
+            <Route path={HOME} component={Home} />
+          </Switch>
         </Router>
       </ThemeProvider>
     </Suspense>
