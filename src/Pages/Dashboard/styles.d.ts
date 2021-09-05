@@ -25,6 +25,12 @@ export const Dashboard = styled.main`
       display: flex;
       flex-direction: column;
 
+      .buttons {
+        display: flex;
+        margin-top: 10px;
+        justify-content: space-between;
+      }
+
       &__input {
         margin-top: 10px;
       }
