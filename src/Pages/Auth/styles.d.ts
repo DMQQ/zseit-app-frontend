@@ -8,6 +8,7 @@ export const Auth = styled.main`
   justify-content: center;
 
   .form {
+    width: 250px;
     display: flex;
     flex-direction: column;
 

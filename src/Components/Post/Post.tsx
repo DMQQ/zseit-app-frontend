@@ -1,7 +1,7 @@
 import * as Styled from "./styles.d";
 import { Button, Paper } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import { API } from "../../assets/constants/consts";
+import { API } from "assets/constants/consts";
 
 interface PostProps {
   thumbnail: string;

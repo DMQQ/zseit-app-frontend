@@ -1,14 +1,22 @@
 import * as Styled from "./styles.d";
-import Burger from "../Burger/Burger";
-import { useState } from "react";
+import Burger from "Components/Burger/Burger";
+import { useHistory } from "react-router";
+import { Button } from "@material-ui/core";
 
 export default function Header() {
-  const [open, setOpen] = useState(false);
+  const history = useHistory();
   return (
     <Styled.Header>
-      <h2 className="app-name">PROGRAMISTA ZSEIT</h2>
+      <Button
+        color="primary"
+        variant="text"
+        style={{ fontSize: 25, padding: 5, fontWeight: "bold", color: "white" }}
+        onClick={() => history.push("/")}
+      >
+        PROGRAMISTA ZSEIT
+      </Button>
       <nav className="burger-section">
-        <Burger open={open} setOpen={setOpen} />
+        <Burger />
       </nav>
     </Styled.Header>
   );

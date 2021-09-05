@@ -7,16 +7,18 @@ import useLocalStorage from "./Hooks/useLocalStorage";
 import GlobalStyles from "./styles/globalStyles.d";
 import Spinner from "./Components/Spinner/Spinner";
 import { Dark, Light } from "./assets/constants/colors";
-import { HOME, LOGIN } from "./assets/constants/routes";
+import { ADMIN_PANEL, ARTICLE, HOME, LOGIN } from "./assets/constants/routes";
 import Home from "./Pages/Home/Home";
 import Header from "./Components/Header/Header";
 import { useDispatch } from "react-redux";
 import { UserActions } from "./redux/User/user";
 import Auth from "./Pages/Auth/Auth";
+import Dashboard from "Pages/Dashboard/Dashboard";
+import Article from "Pages/Article/Article";
 
 export default function App() {
   const { getFromLocalStorage } = useLocalStorage();
-  const [theme, setTheme] = useState(getFromLocalStorage(THEME_PREFIX));
+  const [theme] = useState(getFromLocalStorage(THEME_PREFIX));
   const [loaded, setLoaded] = useState(false);
 
   const dispatch = useDispatch();
@@ -44,6 +46,8 @@ export default function App() {
           <Switch>
             <Route exact path={HOME} component={Home} />
             <Route exact path={LOGIN} component={Auth} />
+            <Route exact path={ADMIN_PANEL} component={Dashboard} />
+            <Route exact path={ARTICLE} component={Article} />
           </Switch>
         </Router>
       </ThemeProvider>

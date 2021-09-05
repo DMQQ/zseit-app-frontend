@@ -1,11 +1,13 @@
 import * as Styled from "./styles.d";
-import { Button, TextField } from "@material-ui/core";
+import { Button, ButtonGroup, TextField } from "@material-ui/core";
 import { useState } from "react";
-import useInput from "../../Hooks/useInput";
+import useInput from "Hooks/useInput";
 import axios from "axios";
-import { API } from "../../assets/constants/consts";
-import { useDispatch } from "react-redux";
-import { UserActions } from "../../redux/User/user";
+import { API, USER_PREFIX } from "assets/constants/consts";
+import { useDispatch, useSelector } from "react-redux";
+import { UserActions } from "redux/User/user";
+import { useHistory } from "react-router";
+import useLocalStorage from "Hooks/useLocalStorage";
 
 export default function Auth() {
   const [email, setEmail] = useState("");
@@ -29,39 +31,77 @@ export default function Auth() {
   const isFormValid =
     isValidEmail && isValidPassword && email !== "" && password !== "";
 
-  const [result, setResult] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [type, setType] = useState("login");
+
+  const history = useHistory();
+  const { addToLocalStorage } = useLocalStorage();
 
   async function onSubmit(e: any) {
     e.preventDefault();
 
     try {
-      setLoading(true);
-      const { data, status } = await axios.post(`${API}/auth/login`, {
+      dispatch(UserActions.loading());
+      const { data, status } = await axios.post(`${API}/auth/${type}`, {
         email,
         password,
       });
-      if (status === 200) {
-        setResult(data);
+
+      if (status === 200 || status === 201) {
         dispatch(UserActions.save(data));
-        setLoading(false);
+        dispatch(UserActions.loading());
+        addToLocalStorage(USER_PREFIX, {
+          token: data.token,
+          username: data.email,
+          user_id: data.user_id,
+        });
+
+        history.push("/");
       }
     } catch (error: any) {
-      setError(error.message);
-      setLoading(false);
+      dispatch(
+        UserActions.error({
+          error:
+            type === "login"
+              ? "Logowanie nie udane"
+              : "Rejestracja nie powiodła się",
+        })
+      );
+      dispatch(UserActions.loading());
+      setEmail("");
+      setPassword("");
     }
   }
 
-  console.log({ result, error, loading });
+  const { error, loading } = useSelector((state: any) => state.user);
 
   return (
     <Styled.Auth>
       <form className="form" onSubmit={onSubmit}>
+        <ButtonGroup
+          disableElevation
+          variant="contained"
+          style={{ marginBottom: 40 }}
+        >
+          <Button
+            color={type === "login" ? "primary" : "inherit"}
+            onClick={() => setType("login")}
+          >
+            Login
+          </Button>
+          <Button
+            onClick={() => setType("register")}
+            color={type === "register" ? "primary" : "inherit"}
+          >
+            Register
+          </Button>
+        </ButtonGroup>
+
+        {!!error && <p style={{ marginBottom: 10, color: "red" }}>{error}</p>}
+
         <TextField
           name="email"
           type="email"
-          label="email"
+          label="email*"
           variant="outlined"
           placeholder="e-mail"
           size="small"
@@ -74,7 +114,7 @@ export default function Auth() {
         <TextField
           name="password"
           type="password"
-          label="Hasło"
+          label="hasło*"
           variant="outlined"
           placeholder="Hasło"
           size="small"
@@ -85,7 +125,12 @@ export default function Auth() {
           error={!isValidPassword}
         />
 
-        <Button variant="contained" color="primary" disabled={!isFormValid}>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          disabled={!isFormValid}
+        >
           Zaloguj się
         </Button>
       </form>
