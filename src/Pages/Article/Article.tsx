@@ -1,51 +1,50 @@
+import { API } from "assets/constants/consts";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import remarkGfm from "remark-gfm";
 
 import * as Styled from "./styles.d";
 
-const text = `
-
-# HI **DEVELOPERS** *React*
-## h2
-### h3
-
-**FAT**
-
-*highlighted*
-
-----
-
- 1. Element
- 2. Element
- 3. Element
- 4. Element
+/* const text = `
+# *Welcome in react-markdown*
 
 ---
 
-[link](https://example.com)
+* Planning
+* Designing
+* Creating
+* Testing 
+* Seling
 
-![test-img](img)
+---
 
+## Starting Code 
 
+copy the code below to start codding along with me
 
-~~~jsx
+~~~tsx
+import React from "react";
 
-const main = new App()
-
-main.listen(PORT,( )=> console.log('App listen on port PORT'))
+export default function App(){
+  return <div></div>
+}
 
 ~~~
 
-~~~ts
-
-{
-    provide: 'ASYNC_CONNECTION',
-    useFactory: async () => {
-      const connection = await createConnection(options);
-      return connection;
-    },
+## Todo Component
+~~~tsx
+export default function Todo(){
+  return {
+    <li>
+    name
+    <button>Remove</button>
+    </li>
+  }
 }
 
 ~~~
@@ -53,25 +52,44 @@ main.listen(PORT,( )=> console.log('App listen on port PORT'))
 
 
 `;
-
+ */
 export default function Article() {
+  const { token } = useSelector((state: any) => state.user);
+  const { id } = useParams<{ id: string }>();
+
+  const [result, setResult] = useState<any>({});
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        const { data, status } = await axios.get(`${API}/post/postId=${+id}`, {
+          headers: {
+            token,
+          },
+        });
+        if (data !== undefined && status == 200) {
+          setResult(data);
+          setLoading(false);
+        }
+      } catch (error: any) {
+        setError(error.message);
+        setLoading(false);
+      }
+    })();
+  }, []);
+
   return (
     <Styled.Article>
       <section style={{ paddingTop: 100 }} className="content-section">
         <ReactMarkdown
-          children={text}
+          children={result?.content}
           remarkPlugins={[remarkGfm]}
           components={{
             em: ({ node, ...props }) => (
-              <span
-                style={{
-                  color: "white",
-                  background: "#3E4044",
-                  paddingLeft: 5,
-                  paddingRight: 5,
-                }}
-                {...props}
-              />
+              <span className="span-styles" {...props} />
             ),
             code({ node, inline, className, children, ...props }) {
               const match = /language-(\w+)/.exec(className || "");
@@ -84,7 +102,6 @@ export default function Article() {
                   PreTag="div"
                   wrapLongLines={true}
                   showLineNumbers={true}
-                  customStyle={{}}
                   {...props}
                 />
               ) : (
