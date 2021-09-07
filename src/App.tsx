@@ -39,7 +39,7 @@ export default function App() {
 
   return (
     <Suspense fallback={<Spinner />}>
-      <ThemeProvider theme={theme === "Light" ? Light : Dark}>
+      <ThemeProvider theme={theme === "Dark" ? Dark : Light}>
         <GlobalStyles />
         <Router>
           <Header />

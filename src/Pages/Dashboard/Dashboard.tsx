@@ -1,36 +1,73 @@
 import * as Styled from "./styles.d";
-import { Button, ButtonGroup, Container, TextField } from "@material-ui/core";
+import {
+  Button,
+  ButtonGroup,
+  Checkbox,
+  Container,
+  TextField,
+} from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
 import { useState } from "react";
 import { API } from "assets/constants/consts";
 import { useSelector } from "react-redux";
+import Categories from "Modules/Categories/Categories";
+import axios from "axios";
+import { useHistory } from "react-router";
 
 export default function Dashboard() {
   const [files, setFiles] = useState<any>([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [categories, setCategories] = useState<string[]>([]);
+  const [premium, setPremium] = useState(false);
+
+  const [result, setResult] = useState("");
 
   const { token } = useSelector((state: any) => state.user);
+
+  const history = useHistory();
 
   async function onSubmit(e: any) {
     e.preventDefault();
 
-    const formdata = new FormData();
-
-    formdata.append("images", files);
-    formdata.append("content", content);
-    formdata.append("title", title);
-
-    try {
-      const response = await fetch(`${API}/admin/create`, {
-        method: "POST",
-        body: formdata,
-        headers: {
-          token,
+    axios
+      .post(
+        `${API}/admin/create`,
+        {
+          title,
+          content,
+          categories,
+          premium,
         },
+        {
+          headers: {
+            token,
+          },
+        }
+      )
+      .then(({ data }) => {
+        const id = data.insertId;
+
+        const formdata = new FormData();
+        files.forEach((file: any) => {
+          formdata.append("images", file);
+        });
+
+        fetch(`${API}/admin/upload/id=${id}`, {
+          method: "POST",
+          body: formdata,
+          headers: {
+            token,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.message === "Uploaded") {
+              setResult("Success");
+              history.push("/article/id=" + id);
+            }
+          });
       });
-      const data = await response.json();
-    } catch (err) {}
   }
 
   return (
@@ -42,7 +79,12 @@ export default function Dashboard() {
       </ButtonGroup>
 
       <Container component="section" className="m-container">
-        <form className="m-container__form" onSubmit={onSubmit}>
+        <Categories categories={categories} setCategories={setCategories} />
+        <form
+          className="m-container__form"
+          onSubmit={onSubmit}
+          encType="multipart/form-data"
+        >
           <TextField
             variant="outlined"
             label="Tytuł"
@@ -61,6 +103,7 @@ export default function Dashboard() {
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
+
           <DropzoneArea
             acceptedFiles={["image/*"]}
             dropzoneText="Upuść zdjęcia w tym miejscu"

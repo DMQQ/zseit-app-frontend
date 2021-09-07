@@ -18,6 +18,8 @@ export const Dashboard = styled.main`
     height: 50vh;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
     &__form {
       margin-top: 20px;

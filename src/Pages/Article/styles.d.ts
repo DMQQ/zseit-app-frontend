@@ -26,6 +26,7 @@ export const Article = styled.main`
 
     h1 {
       font-size: 55px;
+      margin-bottom: 25px;
     }
 
     h2 {
@@ -53,6 +54,10 @@ export const Article = styled.main`
       background-color: #181818;
       padding: 5px;
       border-radius: 5px;
+    }
+
+    img {
+      width: 100%;
     }
   }
 `;

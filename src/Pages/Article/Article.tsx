@@ -7,55 +7,13 @@ import { useParams } from "react-router";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import remarkGfm from "remark-gfm";
+import { ReplaceImages } from "helpers/ReplaceImages";
 
 import * as Styled from "./styles.d";
 
-/* const text = `
-# *Welcome in react-markdown*
-
----
-
-* Planning
-* Designing
-* Creating
-* Testing 
-* Seling
-
----
-
-## Starting Code 
-
-copy the code below to start codding along with me
-
-~~~tsx
-import React from "react";
-
-export default function App(){
-  return <div></div>
-}
-
-~~~
-
-## Todo Component
-~~~tsx
-export default function Todo(){
-  return {
-    <li>
-    name
-    <button>Remove</button>
-    </li>
-  }
-}
-
-~~~
-
-
-
-`;
- */
 export default function Article() {
   const { token } = useSelector((state: any) => state.user);
-  const { id } = useParams<{ id: string }>();
+  const params = useParams<any>();
 
   const [result, setResult] = useState<any>({});
   const [error, setError] = useState("");
@@ -65,11 +23,14 @@ export default function Article() {
     (async () => {
       try {
         setLoading(true);
-        const { data, status } = await axios.get(`${API}/post/postId=${+id}`, {
-          headers: {
-            token,
-          },
-        });
+        const { data, status } = await axios.get(
+          `${API}/posts/postId=${params.id}`,
+          {
+            headers: {
+              token,
+            },
+          }
+        );
         if (data !== undefined && status == 200) {
           setResult(data);
           setLoading(false);
@@ -85,11 +46,17 @@ export default function Article() {
     <Styled.Article>
       <section style={{ paddingTop: 100 }} className="content-section">
         <ReactMarkdown
-          children={result?.content}
+          children={
+            result ? ReplaceImages(result.content || "", result.images) : ""
+          }
           remarkPlugins={[remarkGfm]}
           components={{
             em: ({ node, ...props }) => (
-              <span className="span-styles" {...props} />
+              <span
+                className="span-styles"
+                {...props}
+                style={{ color: "white" }}
+              />
             ),
             code({ node, inline, className, children, ...props }) {
               const match = /language-(\w+)/.exec(className || "");
