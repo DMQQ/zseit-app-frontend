@@ -18,5 +18,13 @@ export default function Home() {
     })();
   }, [token]);
 
-  return <Styled.Container></Styled.Container>;
+  return (
+    <Styled.Container>
+      <section className="content">
+        {result.map((el: any) => {
+          return <Post key={el.id} {...el} />;
+        })}
+      </section>
+    </Styled.Container>
+  );
 }

@@ -2,11 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.article`
   background-color: ${({ theme }) => theme.primaryColor};
-  width: 50vw;
-
-  @media only screen and (max-width: 800px) {
-    width: 90vw;
-  }
+  width: 100%;
 
   .no-margin {
     margin: 10px;
@@ -16,23 +12,28 @@ export const Container = styled.article`
   .post {
     min-width: 200px;
     padding: 5px;
-    width: 100%;
+    width: 60vw;
     border-radius: 10px;
     background-color: ${({ theme }) => theme.secondary100Color};
-
     display: flex;
+
+    @media only screen and (max-width: 1000px) {
+      width: 80vw;
+    }
+
+    @media only screen and (max-width: 800px) {
+      width: 90vw;
+    }
 
     &__img {
       width: 15%;
-      min-width: 120px;
       border-radius: 5px;
     }
 
     &__details {
       display: flex;
-      flex-basis: 84%;
+      width: 85%;
       color: #dddddd;
-      align-items: center;
       justify-content: space-between;
 
       &__title {
@@ -40,9 +41,13 @@ export const Container = styled.article`
       }
 
       &__category {
-        background-color: ${({ theme }) => theme.primaryColor};
         padding: 5px 10px;
         border-radius: 10px;
+
+        .category {
+          font-size: 12px;
+          margin-right: 5px;
+        }
       }
 
       &__btn {

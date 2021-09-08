@@ -40,7 +40,7 @@ export default function Article() {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [params.id]);
 
   return (
     <Styled.Article>
@@ -67,7 +67,6 @@ export default function Article() {
                   style={atomDark}
                   language={match[1]}
                   PreTag="div"
-                  wrapLongLines={true}
                   showLineNumbers={true}
                   {...props}
                 />

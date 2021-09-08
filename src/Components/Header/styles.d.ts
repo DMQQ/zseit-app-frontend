@@ -11,7 +11,7 @@ export const Header = styled.header`
   position: fixed;
 
   .app-name {
-    font-size: 25px;
+    font-size: 20px;
     color: #dddddd;
     flex-basis: 30%;
   }

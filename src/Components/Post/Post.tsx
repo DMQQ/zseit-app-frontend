@@ -6,29 +6,48 @@ import { API } from "assets/constants/consts";
 interface PostProps {
   thumbnail: string;
   title: string;
-  post_id: number;
-  category: string;
+  id: number;
+  categories: any[];
+  images: any[];
 }
 
 export default function Post({
   thumbnail,
   title,
-  post_id,
-  category,
+  id,
+  categories,
+  images,
 }: PostProps) {
   const history = useHistory();
 
-  const Navigate = () => history.push(`/article/id=${post_id}`);
+  const Navigate = () => history.push(`/article/id=${id}`);
+
+  console.log(images);
 
   return (
     <Styled.Container>
       <Button variant="text" className="no-margin" onClick={Navigate}>
         <Paper component="div" elevation={4} className="post">
-          <img className="post__img" src={`${API}/images/id=${thumbnail}`} />
+          <img
+            className="post__img"
+            src={
+              images.length > 0
+                ? `${API}/posts/images/name=${images[0]?.name}`
+                : "https://www.theiasilver.com/index.php/images/products/16062082195fbccadbcb27c.jpg"
+            }
+          />
           <section className="post__details">
             <h3 className="post__details__title">{title}</h3>
 
-            <div className="post__details__category">{category}</div>
+            <div className="post__details__category">
+              {categories.map(({ id, category }) => {
+                return (
+                  <span key={id} className="category">
+                    {category}
+                  </span>
+                );
+              })}
+            </div>
           </section>
         </Paper>
       </Button>

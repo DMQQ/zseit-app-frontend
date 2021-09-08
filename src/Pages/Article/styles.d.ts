@@ -10,6 +10,9 @@ export const Article = styled.main`
     width: 60%;
     color: ${({ theme }) => theme.secondaryColor};
 
+    word-wrap: normal;
+    word-break: inherit;
+
     @media only screen and (max-width: 800px) {
       width: 90%;
     }
@@ -19,6 +22,8 @@ export const Article = styled.main`
     @media only screen and (max-width: 500px) {
       width: 95%;
     }
+
+    word-break: break-all;
 
     hr {
       margin: 10px;
