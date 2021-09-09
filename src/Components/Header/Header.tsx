@@ -10,7 +10,7 @@ export default function Header() {
       <Button
         color="primary"
         variant="text"
-        style={{ fontSize: 20, padding: 5, fontWeight: "bold", color: "white" }}
+        className="button"
         onClick={() => history.push("/")}
       >
         PROGRAMISTA ZSEIT

@@ -10,7 +10,9 @@ const GlobalStyles = createGlobalStyle`
             padding: 0;
         }
         body{
+            
             background-color: ${({ theme }) => theme.primaryColor};
+           
           
         }
 `;

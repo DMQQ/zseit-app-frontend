@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core";
 import * as Styled from "./styles.d";
 
-const CATEGORIES: string[] = [
+export const CATEGORIES: string[] = [
   "FRONTEND",
   "BACKEND",
   "REACT",

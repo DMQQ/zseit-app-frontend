@@ -1,3 +1,5 @@
+import * as Styled from "./styles.d";
+
 export default function Landing() {
-  return <div></div>;
+  return <Styled.Landing></Styled.Landing>;
 }

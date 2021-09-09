@@ -21,7 +21,8 @@ export const Burger = styled.button`
   div {
     width: 2rem;
     height: 0.25rem;
-    background: white;
+    background: ${({ theme, open }: any) =>
+      open ? theme.primaryColor : theme.secondaryColor};
     border-radius: 10px;
     transition: all 0.15s linear;
     position: relative;

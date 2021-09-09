@@ -11,6 +11,7 @@ import {
   ADMIN_PANEL,
   ARTICLE,
   HOME,
+  LANDING,
   LOGIN,
   NOTFOUND,
 } from "./assets/constants/routes";
@@ -23,6 +24,7 @@ import Dashboard from "Pages/Dashboard/Dashboard";
 import Article from "Pages/Article/Article";
 import Sidebar from "Modules/Sidebar/Sidebar";
 import NotFound from "Pages/404/NotFound";
+import Landing from "Pages/Landing/Landing";
 
 export default function App() {
   const { getFromLocalStorage } = useLocalStorage();
@@ -47,10 +49,7 @@ export default function App() {
 
   return (
     <Suspense fallback={<Spinner />}>
-      <ThemeProvider
-        theme={theme === "Dark" ? Dark : Light}
-        //theme={Dark}
-      >
+      <ThemeProvider theme={theme === "Dark" ? Dark : Light}>
         <GlobalStyles />
         <Router>
           <Header />
@@ -60,6 +59,7 @@ export default function App() {
             <Route exact path={LOGIN} component={Auth} />
             <Route exact path={ADMIN_PANEL} component={Dashboard} />
             <Route exact path={ARTICLE} component={Article} />
+            <Route exact path={LANDING} component={Landing} />
             <Route path={NOTFOUND} component={NotFound} />
           </Switch>
         </Router>
