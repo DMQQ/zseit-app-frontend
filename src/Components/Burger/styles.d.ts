@@ -12,7 +12,7 @@ export const Burger = styled.button`
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 10;
+  z-index: 25;
 
   &:focus {
     outline: none;
@@ -21,7 +21,7 @@ export const Burger = styled.button`
   div {
     width: 2rem;
     height: 0.25rem;
-    background: ${({ theme }: { theme: any }) => theme.primaryColor};
+    background: ${({ theme }: { theme: any }) => theme.secondaryColor};
     border-radius: 10px;
     transition: all 0.15s linear;
     position: relative;

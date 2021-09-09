@@ -9,6 +9,7 @@ interface PostProps {
   id: number;
   categories: any[];
   images: any[];
+  description: string;
 }
 
 export default function Post({
@@ -17,12 +18,11 @@ export default function Post({
   id,
   categories,
   images,
+  description,
 }: PostProps) {
   const history = useHistory();
 
   const Navigate = () => history.push(`/article/id=${id}`);
-
-  console.log(images);
 
   return (
     <Styled.Container>
@@ -30,6 +30,7 @@ export default function Post({
         <Paper component="div" elevation={4} className="post">
           <img
             className="post__img"
+            alt="thumbnail"
             src={
               images.length > 0
                 ? `${API}/posts/images/name=${images[0]?.name}`
@@ -37,7 +38,10 @@ export default function Post({
             }
           />
           <section className="post__details">
-            <h3 className="post__details__title">{title}</h3>
+            <div className="post__details__text-container">
+              <h3 className="post__details__title">{title}</h3>
+              <p className="post-desc">{description}</p>
+            </div>
 
             <div className="post__details__category">
               {categories.map(({ id, category }) => {

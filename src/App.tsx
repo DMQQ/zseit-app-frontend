@@ -10,18 +10,19 @@ import { Dark, Light } from "./assets/constants/colors";
 import { ADMIN_PANEL, ARTICLE, HOME, LOGIN } from "./assets/constants/routes";
 import Home from "./Pages/Home/Home";
 import Header from "./Components/Header/Header";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserActions } from "./redux/User/user";
 import Auth from "./Pages/Auth/Auth";
 import Dashboard from "Pages/Dashboard/Dashboard";
 import Article from "Pages/Article/Article";
+import Sidebar from "Modules/Sidebar/Sidebar";
 
 export default function App() {
   const { getFromLocalStorage } = useLocalStorage();
-  const [theme] = useState(getFromLocalStorage(THEME_PREFIX));
+  // const [theme] = useState(getFromLocalStorage(THEME_PREFIX));
   const [loaded, setLoaded] = useState(false);
-
   const dispatch = useDispatch();
+  const sidebar = useSelector((state: any) => state.modals.sidebar);
 
   const HideLoader = () => setLoaded(true);
 
@@ -39,10 +40,14 @@ export default function App() {
 
   return (
     <Suspense fallback={<Spinner />}>
-      <ThemeProvider theme={theme === "Dark" ? Dark : Light}>
+      <ThemeProvider
+        //  theme={theme === "Dark" ? Dark : Light}
+        theme={Dark}
+      >
         <GlobalStyles />
         <Router>
           <Header />
+          <Sidebar sidebar={sidebar} />
           <Switch>
             <Route exact path={HOME} component={Home} />
             <Route exact path={LOGIN} component={Auth} />

@@ -17,16 +17,17 @@ export const Container = styled.article`
     background-color: ${({ theme }) => theme.secondary100Color};
     display: flex;
 
-    @media only screen and (max-width: 1000px) {
+    @media only screen and (max-width: 1200px) {
       width: 80vw;
     }
 
-    @media only screen and (max-width: 800px) {
+    @media only screen and (max-width: 850px) {
       width: 90vw;
     }
 
     &__img {
       width: 15%;
+      min-width: 150px;
       border-radius: 5px;
     }
 
@@ -40,13 +41,32 @@ export const Container = styled.article`
         margin-left: 10px;
       }
 
+      &__text-container {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+
+        .post-desc {
+          font-size: 13px;
+          flex-wrap: wrap;
+          padding: 10px;
+        }
+      }
+
       &__category {
         padding: 5px 10px;
         border-radius: 10px;
 
+        @media only screen and (max-width: 800px) {
+          display: none;
+        }
+
         .category {
           font-size: 12px;
           margin-right: 5px;
+          background-color: rgb(44, 44, 44);
+          padding: 5px;
+          border-radius: 10px;
         }
       }
 

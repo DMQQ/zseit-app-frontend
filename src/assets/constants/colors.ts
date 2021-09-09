@@ -7,7 +7,7 @@ export const Light = {
   lighGrey: "#616e8b",
 };
 export const Dark = {
-  primaryColor: "#050505",
+  primaryColor: "#111111",
   secondaryColor: "white",
   secondary100Color: "rgba(33,33,33)",
   blue: "#197fea",

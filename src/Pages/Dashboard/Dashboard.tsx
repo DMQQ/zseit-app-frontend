@@ -1,11 +1,5 @@
 import * as Styled from "./styles.d";
-import {
-  Button,
-  ButtonGroup,
-  Checkbox,
-  Container,
-  TextField,
-} from "@material-ui/core";
+import { Button, ButtonGroup, Container, TextField } from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
 import { useState } from "react";
 import { API } from "assets/constants/consts";
@@ -69,6 +63,8 @@ export default function Dashboard() {
           });
       });
   }
+
+  console.log({ result });
 
   return (
     <Styled.Dashboard>

@@ -31,7 +31,7 @@ export default function Article() {
             },
           }
         );
-        if (data !== undefined && status == 200) {
+        if (data !== undefined && status === 200) {
           setResult(data);
           setLoading(false);
         }
@@ -40,7 +40,7 @@ export default function Article() {
         setLoading(false);
       }
     })();
-  }, [params.id]);
+  }, [params.id, token]);
 
   return (
     <Styled.Article>
