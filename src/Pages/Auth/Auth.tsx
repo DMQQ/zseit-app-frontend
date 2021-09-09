@@ -74,6 +74,8 @@ export default function Auth() {
 
   const { error, loading } = useSelector((state: any) => state.user);
 
+  console.log({ loading });
+
   return (
     <Styled.Auth>
       <form className="form" onSubmit={onSubmit}>

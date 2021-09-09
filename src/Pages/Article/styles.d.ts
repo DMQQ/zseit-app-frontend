@@ -3,12 +3,14 @@ import styled from "styled-components";
 export const Article = styled.main`
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   background-color: ${({ theme }) => theme.primaryColor};
 
   .content-section {
     width: 60%;
     color: ${({ theme }) => theme.secondaryColor};
+    min-height: 95vh;
 
     word-wrap: normal;
     word-break: inherit;

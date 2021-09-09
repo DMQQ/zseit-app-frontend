@@ -73,6 +73,8 @@ export default function Dashboard() {
       });
   }
 
+  console.log({ result });
+
   return (
     <Styled.Dashboard>
       <ButtonGroup className="btn-container" variant="outlined" color="primary">

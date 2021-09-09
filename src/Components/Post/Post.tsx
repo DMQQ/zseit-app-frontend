@@ -24,8 +24,6 @@ export default function Post({
 
   const Navigate = () => history.push(`/article/id=${id}`);
 
-  console.log(images);
-
   return (
     <Styled.Container>
       <Button variant="text" className="no-margin" onClick={Navigate}>

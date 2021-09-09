@@ -36,6 +36,7 @@ export default function Home() {
         {posts.map((el: any) => {
           return <Post key={el.id} {...el} />;
         })}
+        {posts?.length === 0 && <h1>Loader</h1>}
       </section>
     </Styled.Container>
   );
