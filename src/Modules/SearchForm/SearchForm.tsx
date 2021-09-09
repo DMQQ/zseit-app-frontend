@@ -12,12 +12,11 @@ export default function SearchForm() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    if (search.trim() === "") return;
     const delayDebounceFn = setTimeout(async () => {
       try {
         dispatch(postsAction.loading());
         const { data, status } = await axios.get(
-          `${API}/posts/search=${search}`,
+          search ? `${API}/posts/search=${search}` : `${API}/posts`,
           {
             headers: {
               token,
@@ -30,6 +29,7 @@ export default function SearchForm() {
         }
       } catch (err) {
         dispatch(postsAction.error({ error: err }));
+        console.log(err);
         dispatch(postsAction.loading());
       }
     }, 1500);

@@ -6,6 +6,7 @@ export const Dashboard = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
 
   .btn-container {
     display: flex;
@@ -14,8 +15,7 @@ export const Dashboard = styled.main`
   }
 
   .m-container {
-    margin-top: 30px;
-    height: 50vh;
+    height: 80vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -23,9 +23,11 @@ export const Dashboard = styled.main`
 
     &__form {
       margin-top: 20px;
-      width: 400px;
+      width: 500px;
       display: flex;
+      height: 80vh;
       flex-direction: column;
+      overflow-y: scroll;
 
       .buttons {
         display: flex;

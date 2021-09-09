@@ -34,6 +34,7 @@ export default function Article() {
         if (data !== undefined && status === 200) {
           setResult(data);
           setLoading(false);
+          document.title = data.title;
         }
       } catch (error: any) {
         setError(error.message);

@@ -24,6 +24,8 @@ export default function Post({
 
   const Navigate = () => history.push(`/article/id=${id}`);
 
+  console.log(images);
+
   return (
     <Styled.Container>
       <Button variant="text" className="no-margin" onClick={Navigate}>
@@ -39,8 +41,10 @@ export default function Post({
           />
           <section className="post__details">
             <div className="post__details__text-container">
-              <h3 className="post__details__title">{title}</h3>
-              <p className="post-desc">{description}</p>
+              <h3 className="post__details__title">
+                {title.split("").slice(0, 50)}
+              </h3>
+              <p className="post-desc">{description.split("").slice(0, 100)}</p>
             </div>
 
             <div className="post__details__category">

@@ -27,6 +27,8 @@ export default function Home() {
     })();
   }, [token, dispatch]);
 
+  document.title = "Programista ZSEIT";
+
   return (
     <Styled.Container>
       <section className="content">

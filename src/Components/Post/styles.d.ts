@@ -29,6 +29,8 @@ export const Container = styled.article`
       width: 15%;
       min-width: 150px;
       border-radius: 5px;
+
+      max-height: 150px;
     }
 
     &__details {
@@ -48,7 +50,7 @@ export const Container = styled.article`
 
         .post-desc {
           font-size: 13px;
-          flex-wrap: wrap;
+          word-break: break-word;
           padding: 10px;
         }
       }

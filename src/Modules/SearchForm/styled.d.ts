@@ -11,7 +11,7 @@ export const SearchForm = styled.section`
     font-size: 18px;
     background-color: ${({ theme }) => theme.primaryColor};
     color: ${({ theme }) => theme.secondaryColor};
-    border: 1.5px solid white;
+    border: 1.5px solid ${({ theme }) => theme.secondaryColor};
     border-radius: 5px;
     color: #3f51b5;
     transition: all 100ms linear;

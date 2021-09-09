@@ -1,5 +1,12 @@
 import * as Styled from "./styles.d";
-import { Button, ButtonGroup, Container, TextField } from "@material-ui/core";
+import {
+  Button,
+  ButtonGroup,
+  Checkbox,
+  Container,
+  FormControlLabel,
+  TextField,
+} from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
 import { useState } from "react";
 import { API } from "assets/constants/consts";
@@ -14,6 +21,7 @@ export default function Dashboard() {
   const [content, setContent] = useState("");
   const [categories, setCategories] = useState<string[]>([]);
   const [premium, setPremium] = useState(false);
+  const [description, setDescription] = useState("");
 
   const [result, setResult] = useState("");
 
@@ -32,6 +40,7 @@ export default function Dashboard() {
           content,
           categories,
           premium,
+          description,
         },
         {
           headers: {
@@ -64,8 +73,6 @@ export default function Dashboard() {
       });
   }
 
-  console.log({ result });
-
   return (
     <Styled.Dashboard>
       <ButtonGroup className="btn-container" variant="outlined" color="primary">
@@ -89,6 +96,16 @@ export default function Dashboard() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
+
+          <TextField
+            variant="outlined"
+            label="Opis"
+            size="small"
+            className="m-container__form__input"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+
           <TextField
             variant="outlined"
             label="Html"
@@ -98,6 +115,16 @@ export default function Dashboard() {
             style={{ marginBottom: 15 }}
             value={content}
             onChange={(e) => setContent(e.target.value)}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={premium}
+                onChange={(e) => setPremium(e.target.checked)}
+                name="premium"
+              />
+            }
+            label="Wymaga konta"
           />
 
           <DropzoneArea

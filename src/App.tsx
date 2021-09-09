@@ -19,7 +19,7 @@ import Sidebar from "Modules/Sidebar/Sidebar";
 
 export default function App() {
   const { getFromLocalStorage } = useLocalStorage();
-  // const [theme] = useState(getFromLocalStorage(THEME_PREFIX));
+  const [theme] = useState(getFromLocalStorage(THEME_PREFIX));
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
   const sidebar = useSelector((state: any) => state.modals.sidebar);
@@ -41,8 +41,8 @@ export default function App() {
   return (
     <Suspense fallback={<Spinner />}>
       <ThemeProvider
-        //  theme={theme === "Dark" ? Dark : Light}
-        theme={Dark}
+        theme={theme === "Dark" ? Dark : Light}
+        //theme={Dark}
       >
         <GlobalStyles />
         <Router>

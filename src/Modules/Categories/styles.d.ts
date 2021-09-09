@@ -5,9 +5,13 @@ export const Categories = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: row;
+  margin-top: 25px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 
   .category-item {
-    padding: 5px 10px;
+    padding: 5px;
     margin-right: 5px;
   }
 `;
