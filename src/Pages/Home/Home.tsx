@@ -5,7 +5,6 @@ import { API } from "assets/constants/consts";
 import * as Styled from "./styles.d";
 import Post from "Components/Post/Post";
 import { postsAction } from "redux/Posts/Posts";
-import SearchForm from "Modules/SearchForm/SearchForm";
 
 export default function Home() {
   const { token } = useSelector((state: any) => state.user);
@@ -32,11 +31,13 @@ export default function Home() {
   return (
     <Styled.Container>
       <section className="content">
-        <SearchForm />
-        {posts.map((el: any) => {
-          return <Post key={el.id} {...el} />;
+        <h2 className="content__headings">Dostępne: {posts?.length}</h2>
+
+        {posts?.map((post: any) => {
+          return <Post key={post.id} {...post} />;
         })}
-        {posts?.length === 0 && <h1>Loader</h1>}
+
+        <h2 className="content__headings">Dla zalogowanych: {posts?.length}</h2>
       </section>
     </Styled.Container>
   );

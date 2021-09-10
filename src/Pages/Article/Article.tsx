@@ -55,7 +55,7 @@ export default function Article() {
 
   return (
     <Styled.Article>
-      <section style={{ paddingTop: 100 }} className="content-section">
+      <section style={{ paddingTop: 120 }} className="content-section">
         <ReactMarkdown
           children={
             result ? ReplaceImages(result.content || "", result.images) : ""

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export const Sidebar = styled.aside`
   .sidebar {
     position: fixed;
-    background: #111111;
+    background: #19191a;
     width: 400px;
     height: 100vh;
     right: 0;

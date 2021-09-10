@@ -7,6 +7,13 @@ export const Container = styled.main`
   background-color: ${({ theme }) => theme.primaryColor};
 
   .content {
-    margin-top: 100px;
+    margin-top: 120px;
+    text-align: left;
+
+    &__headings {
+      color: white;
+      padding: 15px;
+      font-size: 35px;
+    }
   }
 `;

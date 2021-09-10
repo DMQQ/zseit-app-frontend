@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Burger = styled.button`
   position: relative;
-
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -21,8 +20,7 @@ export const Burger = styled.button`
   div {
     width: 2rem;
     height: 0.25rem;
-    background: ${({ theme, open }: any) =>
-      open ? theme.primaryColor : theme.secondaryColor};
+    background: white;
     border-radius: 10px;
     transition: all 0.15s linear;
     position: relative;

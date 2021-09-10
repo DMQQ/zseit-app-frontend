@@ -26,7 +26,7 @@ export const Container = styled.article`
     }
 
     &__img {
-      width: 15%;
+      width: 25%;
       min-width: 150px;
       border-radius: 5px;
 
@@ -41,6 +41,9 @@ export const Container = styled.article`
 
       &__title {
         margin-left: 10px;
+        font-size: 25px;
+        letter-spacing: 1px;
+        word-break: break-all;
       }
 
       &__text-container {

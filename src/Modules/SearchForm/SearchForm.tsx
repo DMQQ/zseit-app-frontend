@@ -1,52 +1,58 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Styled from "./styled.d";
 import { API } from "assets/constants/consts";
 import { postsAction } from "redux/Posts/Posts";
+import FilterCategories from "../FilterCategories/FilterCategories";
+import { Button } from "@material-ui/core";
+
+import SearchIcon from "@material-ui/icons/Search";
 
 export default function SearchForm() {
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state.user.token);
 
   const [search, setSearch] = useState("");
+  const [categories, setCategories] = useState("FRONTEND");
 
-  useEffect(() => {
-    const delayDebounceFn = setTimeout(async () => {
-      try {
-        dispatch(postsAction.loading());
-        const { data, status } = await axios.get(
-          search ? `${API}/posts/search=${search}` : `${API}/posts`,
-          {
-            headers: {
-              token,
-            },
-          }
-        );
-        if (data !== null && status === 200) {
-          dispatch(postsAction.SaveData({ data }));
-          dispatch(postsAction.loading());
+  async function onSearch() {
+    try {
+      dispatch(postsAction.loading());
+      const { data, status } = await axios.get(
+        `${API}/posts/search=${search || "ALL"}/category=${categories || ""}`,
+        {
+          headers: {
+            token,
+          },
         }
-      } catch (err) {
-        dispatch(postsAction.error({ error: err }));
-        console.log(err);
+      );
+      if (data !== null && status === 200) {
+        dispatch(postsAction.SaveData({ data }));
         dispatch(postsAction.loading());
       }
-    }, 1500);
-
-    return () => clearTimeout(delayDebounceFn);
-  }, [search, dispatch, token]);
+    } catch (err) {
+      // dispatch(postsAction.error({ error: err })); fix later
+      dispatch(postsAction.loading());
+    }
+  }
 
   return (
-    <Styled.SearchForm>
-      <input
-        autoFocus
+    <Styled.Container>
+      <FilterCategories setCategories={setCategories} />
+      <Styled.SearchForm
         type="search"
         className="input-field"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Wyszukaj tutaj..."
       />
-    </Styled.SearchForm>
+      <Button
+        style={{ backgroundColor: "#1d1d1d", marginLeft: 5 }}
+        onClick={onSearch}
+      >
+        <SearchIcon style={{ color: "white" }} />
+      </Button>
+    </Styled.Container>
   );
 }

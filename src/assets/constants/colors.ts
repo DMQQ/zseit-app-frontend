@@ -8,6 +8,7 @@ export const Light = {
 };
 export const Dark = {
   primaryColor: "#111111",
+
   secondaryColor: "white",
   secondary100Color: "rgba(33,33,33)",
   blue: "#197fea",

@@ -1,5 +1,4 @@
 import * as Styled from "./styles.d";
-
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import { CATEGORIES } from "Modules/Categories/Categories";
 import { useEffect } from "react";
@@ -18,6 +17,7 @@ export default function Sidebar({ sidebar }: SidebarProps) {
       transition: { delay: i * 0.3 },
     }));
   }, [sidebar]);
+
   return (
     <Styled.Sidebar>
       <AnimatePresence>

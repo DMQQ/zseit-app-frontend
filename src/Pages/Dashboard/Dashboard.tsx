@@ -32,6 +32,8 @@ export default function Dashboard() {
   async function onSubmit(e: any) {
     e.preventDefault();
 
+    if (!title || !content || !categories || !description) return;
+
     axios
       .post(
         `${API}/admin/create`,

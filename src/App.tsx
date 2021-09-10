@@ -2,11 +2,11 @@ import { Suspense, useState } from "react";
 import { useEffect } from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import { THEME_PREFIX, USER_PREFIX } from "./assets/constants/consts";
+import { USER_PREFIX } from "./assets/constants/consts";
 import useLocalStorage from "./Hooks/useLocalStorage";
 import GlobalStyles from "./styles/globalStyles.d";
 import Spinner from "./Components/Spinner/Spinner";
-import { Dark, Light } from "./assets/constants/colors";
+import { Dark } from "./assets/constants/colors";
 import {
   ADMIN_PANEL,
   ARTICLE,
@@ -25,10 +25,10 @@ import Article from "Pages/Article/Article";
 import Sidebar from "Modules/Sidebar/Sidebar";
 import NotFound from "Pages/404/NotFound";
 import Landing from "Pages/Landing/Landing";
+import ProtectedRoute from "Modules/ProtectedRoute/ProtectedRoute";
 
 export default function App() {
   const { getFromLocalStorage } = useLocalStorage();
-  const [theme] = useState(getFromLocalStorage(THEME_PREFIX));
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
   const sidebar = useSelector((state: any) => state.modals.sidebar);
@@ -49,7 +49,7 @@ export default function App() {
 
   return (
     <Suspense fallback={<Spinner />}>
-      <ThemeProvider theme={theme === "Dark" ? Dark : Light}>
+      <ThemeProvider theme={Dark}>
         <GlobalStyles />
         <Router>
           <Header />
@@ -57,7 +57,7 @@ export default function App() {
           <Switch>
             <Route exact path={HOME} component={Home} />
             <Route exact path={LOGIN} component={Auth} />
-            <Route exact path={ADMIN_PANEL} component={Dashboard} />
+            <ProtectedRoute exact path={ADMIN_PANEL} component={Dashboard} />
             <Route exact path={ARTICLE} component={Article} />
             <Route exact path={LANDING} component={Landing} />
             <Route path={NOTFOUND} component={NotFound} />

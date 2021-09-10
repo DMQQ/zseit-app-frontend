@@ -9,11 +9,8 @@ const GlobalStyles = createGlobalStyle`
             font-family: "Poppins",sans-serif;
             padding: 0;
         }
-        body{
-            
-            background-color: ${({ theme }) => theme.primaryColor};
-           
-          
+        body{  
+            background-color: ${({ theme }) => theme.primaryColor};   
         }
 `;
 

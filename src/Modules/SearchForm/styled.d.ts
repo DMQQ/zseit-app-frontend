@@ -1,24 +1,19 @@
 import styled from "styled-components";
 
-export const SearchForm = styled.section`
-  width: 100%;
-  padding: 10px;
-  height: 100px;
-
-  .input-field {
-    width: 100%;
-    padding: 10px;
-    font-size: 18px;
-    background-color: ${({ theme }) => theme.primaryColor};
-    color: ${({ theme }) => theme.secondaryColor};
-    border: 1.5px solid ${({ theme }) => theme.secondaryColor};
-    border-radius: 5px;
-    color: #3f51b5;
-    transition: all 100ms linear;
-
-    &:focus {
-      border: 1.5px solid #3f51b5;
-      outline: none;
-    }
+export const Container = styled.nav`
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  @media only screen and (max-width: 700px) {
+    display: none;
   }
+`;
+
+export const SearchForm = styled.input`
+  width: 50%;
+  padding: 10px;
+  font-size: 17px;
+  border: none;
+  background: #1d1d1d;
+  border-radius: 5px;
 `;

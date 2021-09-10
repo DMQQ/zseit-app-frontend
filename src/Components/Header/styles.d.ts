@@ -3,19 +3,28 @@ import styled from "styled-components";
 export const Header = styled.header`
   width: 100%;
   padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   position: fixed;
   z-index: 30;
+  height: ${({ height }: { height: number }) => height}px;
+  transition: all 150ms linear;
+  display: flex;
+  align-items: center;
+  background: ${({ theme }) => theme.primaryColor};
 
-  height: 60px;
+  .header {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-  .button {
-    color: ${({ theme }) => theme.secondaryColor};
-    padding: 10px;
-    font-size: 20px;
-    font-weight: bold;
+    &__logo {
+      color: ${({ theme }) => theme.secondaryColor};
+      padding: 10px;
+      font-size: 20px;
+      text-align: left;
+      font-weight: bold;
+    }
   }
 
   .app-name {

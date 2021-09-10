@@ -40,7 +40,7 @@ export default function Post({
           <section className="post__details">
             <div className="post__details__text-container">
               <h3 className="post__details__title">
-                {title.split("").slice(0, 50)}
+                {title.split("").slice(0, 30)}
               </h3>
               <p className="post-desc">{description.split("").slice(0, 100)}</p>
             </div>
