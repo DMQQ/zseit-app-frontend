@@ -33,4 +33,16 @@ export const Header = styled.header`
     flex-basis: 30%;
     color: ${({ theme }) => theme.secondaryColor};
   }
+
+  .button-hover {
+    border-color: #00c896;
+    color: #00c896;
+
+    transition: all 100ms linear;
+
+    :hover {
+      border-color: white;
+      color: white;
+    }
+  }
 `;

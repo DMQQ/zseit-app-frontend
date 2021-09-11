@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
 
 export const Sidebar = styled.aside`
   .sidebar {
@@ -8,8 +7,14 @@ export const Sidebar = styled.aside`
     width: 400px;
     height: 100vh;
     right: 0;
-    z-index: 20;
-    padding: 30px;
+    z-index: 50;
+    padding: 10px;
+
+    ol {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
 
     li {
       color: white;

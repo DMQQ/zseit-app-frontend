@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.article`
-  background-color: ${({ theme }) => theme.primaryColor};
+  background-color: white;
   width: 100%;
+  display: flex;
+  justify-content: center;
 
   .no-margin {
     margin: 10px;

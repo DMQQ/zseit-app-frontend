@@ -30,6 +30,10 @@ export default function SearchForm() {
       if (data !== null && status === 200) {
         dispatch(postsAction.SaveData({ data }));
         dispatch(postsAction.loading());
+        window.scrollBy({
+          top: 700,
+          behavior: "smooth",
+        });
       }
     } catch (err) {
       // dispatch(postsAction.error({ error: err })); fix later

@@ -1,10 +1,13 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API } from "assets/constants/consts";
 import * as Styled from "./styles.d";
 import Post from "Components/Post/Post";
 import { postsAction } from "redux/Posts/Posts";
+import Overview from "Modules/Overview/Overview";
+import useIntersectionObserver from "Hooks/useIntersectionObserver";
+import Footer from "Modules/Footer/Footer";
 
 export default function Home() {
   const { token } = useSelector((state: any) => state.user);
@@ -28,17 +31,25 @@ export default function Home() {
 
   document.title = "Programista ZSEIT";
 
+  const ref = useRef<HTMLDivElement | null>(null);
+  const entry = useIntersectionObserver(ref, {});
+  const isVisible = !!entry?.isIntersecting;
+
   return (
     <Styled.Container>
-      <section className="content">
+      <Overview />
+      <section
+        className="content"
+        ref={ref}
+        style={{ opacity: isVisible ? 1 : 0 }}
+      >
         <h2 className="content__headings">Dostępne: {posts?.length}</h2>
 
         {posts?.map((post: any) => {
           return <Post key={post.id} {...post} />;
         })}
-
-        <h2 className="content__headings">Dla zalogowanych: {posts?.length}</h2>
       </section>
+      <Footer />
     </Styled.Container>
   );
 }

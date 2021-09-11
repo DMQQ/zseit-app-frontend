@@ -1,5 +1,5 @@
 import * as Styled from "./styles.d";
-import { Button, Paper } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { API } from "assets/constants/consts";
 
@@ -27,7 +27,7 @@ export default function Post({
   return (
     <Styled.Container>
       <Button variant="text" className="no-margin" onClick={Navigate}>
-        <Paper component="div" elevation={4} className="post">
+        <section className="post">
           <img
             className="post__img"
             alt="thumbnail"
@@ -55,7 +55,7 @@ export default function Post({
               })}
             </div>
           </section>
-        </Paper>
+        </section>
       </Button>
     </Styled.Container>
   );

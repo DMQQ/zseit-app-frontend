@@ -6,6 +6,7 @@ export const Auth = styled.main`
   height: 100vh;
   align-items: center;
   justify-content: center;
+  background-color: white;
 
   .form {
     width: 250px;

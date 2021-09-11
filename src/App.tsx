@@ -11,7 +11,6 @@ import {
   ADMIN_PANEL,
   ARTICLE,
   HOME,
-  LANDING,
   LOGIN,
   NOTFOUND,
 } from "./assets/constants/routes";
@@ -24,14 +23,13 @@ import Dashboard from "Pages/Dashboard/Dashboard";
 import Article from "Pages/Article/Article";
 import Sidebar from "Modules/Sidebar/Sidebar";
 import NotFound from "Pages/404/NotFound";
-import Landing from "Pages/Landing/Landing";
 import ProtectedRoute from "Modules/ProtectedRoute/ProtectedRoute";
 
 export default function App() {
   const { getFromLocalStorage } = useLocalStorage();
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-  const sidebar = useSelector((state: any) => state.modals.sidebar);
+  const { sidebar } = useSelector((state: any) => state.modals);
 
   const HideLoader = () => setLoaded(true);
 
@@ -54,12 +52,12 @@ export default function App() {
         <Router>
           <Header />
           <Sidebar sidebar={sidebar} />
+
           <Switch>
             <Route exact path={HOME} component={Home} />
             <Route exact path={LOGIN} component={Auth} />
             <ProtectedRoute exact path={ADMIN_PANEL} component={Dashboard} />
             <Route exact path={ARTICLE} component={Article} />
-            <Route exact path={LANDING} component={Landing} />
             <Route path={NOTFOUND} component={NotFound} />
           </Switch>
         </Router>

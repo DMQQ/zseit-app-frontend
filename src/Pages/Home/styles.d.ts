@@ -3,17 +3,17 @@ import styled from "styled-components";
 export const Container = styled.main`
   width: 100%;
   display: flex;
-  justify-content: center;
-  background-color: ${({ theme }) => theme.primaryColor};
+  background-color: white;
+  flex-direction: column;
 
   .content {
-    margin-top: 120px;
-    text-align: left;
+    transition: all 150ms linear;
 
     &__headings {
-      color: white;
+      color: black;
       padding: 15px;
       font-size: 35px;
+      text-align: center;
     }
   }
 `;

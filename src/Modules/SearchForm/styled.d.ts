@@ -16,4 +16,5 @@ export const SearchForm = styled.input`
   border: none;
   background: #1d1d1d;
   border-radius: 5px;
+  color: white;
 `;
