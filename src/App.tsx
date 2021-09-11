@@ -1,6 +1,6 @@
 import { Suspense, useState } from "react";
 import { useEffect } from "react";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { USER_PREFIX } from "./assets/constants/consts";
 import useLocalStorage from "./Hooks/useLocalStorage";

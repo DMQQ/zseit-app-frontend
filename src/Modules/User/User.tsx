@@ -9,8 +9,6 @@ export default function User() {
   const user = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
 
-  const username = user?.username?.split("@")[0] || "gość";
-
   function Signout() {
     dispatch(UserActions.remove());
     localStorage.removeItem(USER_PREFIX);
@@ -21,7 +19,9 @@ export default function User() {
 
   return (
     <Styled.User>
-      <h2 className="username">Hej {username}</h2>
+      <h2 className="username">
+        Hej {user?.username?.split("@")[0] || "gość"}
+      </h2>
       {user && (
         <Button
           variant="outlined"

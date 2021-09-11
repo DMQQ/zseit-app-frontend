@@ -15,6 +15,8 @@ import Categories from "Modules/Categories/Categories";
 import axios from "axios";
 import { useHistory } from "react-router";
 
+import Info from "./Info/Info";
+
 export default function Dashboard() {
   const [files, setFiles] = useState<any>([]);
   const [title, setTitle] = useState("");
@@ -28,6 +30,8 @@ export default function Dashboard() {
   const { token } = useSelector((state: any) => state.user);
 
   const history = useHistory();
+
+  const [file, setFile] = useState<any>();
 
   async function onSubmit(e: any) {
     e.preventDefault();
@@ -69,13 +73,25 @@ export default function Dashboard() {
           .then((data) => {
             if (data.message === "Uploaded") {
               setResult("Success");
-              history.push("/article/id=" + id);
+              history.push("/article/id=" + id + "/title=" + title);
             }
           });
+
+        const fileForm = new FormData();
+
+        fileForm.append("files", file);
+
+        fetch(`${API}/admin/upload/files/id=${id}`, {
+          method: "POST",
+          body: fileForm,
+          headers: {
+            token,
+          },
+        });
       });
   }
 
-  console.log({ result });
+  const [showHelp, setShowHelp] = useState(false);
 
   return (
     <Styled.Dashboard>
@@ -137,6 +153,11 @@ export default function Dashboard() {
             onChange={(files) => setFiles(files)}
             filesLimit={5}
           />
+          <input
+            type="file"
+            style={{ marginTop: 10 }}
+            onChange={(e: any) => setFile(e.target.files[0])}
+          />
           <div className="buttons">
             <Button variant="contained" color="primary" type="submit">
               Opublikuj
@@ -147,6 +168,17 @@ export default function Dashboard() {
           </div>
         </form>
       </Container>
+
+      <Button
+        variant="contained"
+        color="primary"
+        style={{ position: "fixed", right: 10, bottom: 10 }}
+        onClick={() => setShowHelp(!showHelp)}
+      >
+        Pomoc
+      </Button>
+
+      {showHelp && <Info />}
     </Styled.Dashboard>
   );
 }

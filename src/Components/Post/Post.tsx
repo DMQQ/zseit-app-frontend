@@ -4,16 +4,15 @@ import { useHistory } from "react-router-dom";
 import { API } from "assets/constants/consts";
 
 interface PostProps {
-  thumbnail: string;
   title: string;
   id: number;
   categories: any[];
   images: any[];
   description: string;
+  needAccount: boolean;
 }
 
 export default function Post({
-  thumbnail,
   title,
   id,
   categories,
@@ -22,7 +21,9 @@ export default function Post({
 }: PostProps) {
   const history = useHistory();
 
-  const Navigate = () => history.push(`/article/id=${id}`);
+  const Navigate = () => history.push(`/article/id=${id}/title=${title}`);
+
+  const cats = categories.slice(0, 5);
 
   return (
     <Styled.Container>
@@ -46,13 +47,14 @@ export default function Post({
             </div>
 
             <div className="post__details__category">
-              {categories.map(({ id, category }) => {
-                return (
-                  <span key={id} className="category">
-                    {category}
-                  </span>
-                );
-              })}
+              {cats &&
+                cats.map(({ id, category }) => {
+                  return (
+                    <span key={id} className="category">
+                      #{category}
+                    </span>
+                  );
+                })}
             </div>
           </section>
         </section>

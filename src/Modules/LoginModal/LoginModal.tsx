@@ -56,6 +56,7 @@ export default function LoginModal({ show, top }: { show: any; top: number }) {
           token: data.token,
           username: data.email,
           user_id: data.user_id,
+          role: data.role,
         });
         setSuccess(true);
         history.push("/");

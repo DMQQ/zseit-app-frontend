@@ -27,25 +27,43 @@ export const Container = styled.article`
       width: 90vw;
     }
 
+    @media only screen and (max-width: 600px) {
+      width: 95vw;
+    }
+
     &__img {
       width: 25%;
       min-width: 150px;
       border-radius: 5px;
+    }
 
-      max-height: 150px;
+    @media only screen and (max-width: 600px) {
+      flex-direction: column;
+
+      &__img {
+        width: 100%;
+      }
     }
 
     &__details {
       display: flex;
-      width: 85%;
+      width: 90%;
       color: #dddddd;
       justify-content: space-between;
+
+      @media only screen and (max-width: 750px) {
+        flex-direction: column;
+      }
 
       &__title {
         margin-left: 10px;
         font-size: 25px;
         letter-spacing: 1px;
         word-break: break-all;
+
+        @media only screen and (max-width: 600px) {
+          font-size: 20px;
+        }
       }
 
       &__text-container {
@@ -63,12 +81,11 @@ export const Container = styled.article`
       &__category {
         padding: 5px 10px;
         border-radius: 10px;
-
-        @media only screen and (max-width: 800px) {
-          display: none;
-        }
+        display: flex;
+        flex-wrap: wrap;
 
         .category {
+          height: 30px;
           font-size: 12px;
           margin-right: 5px;
           background-color: rgb(44, 44, 44);

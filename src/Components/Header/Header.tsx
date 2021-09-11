@@ -39,7 +39,6 @@ export default function Header() {
   }
 
   const user = useSelector((state: any) => state.user);
-
   const { login } = useSelector((state: any) => state.modals);
 
   return (
@@ -66,6 +65,18 @@ export default function Header() {
               Zaloguj się
             </Button>
           )}
+
+          {user.role === "ADMIN" && (
+            <Button
+              variant="outlined"
+              className="button-hover"
+              style={{ marginRight: 20 }}
+              onClick={() => history.push("/adminpanel")}
+            >
+              Admin
+            </Button>
+          )}
+
           <Burger />
         </div>
       </header>

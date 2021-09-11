@@ -5,12 +5,17 @@ import ReactMarkdown from "react-markdown";
 import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import remarkGfm from "remark-gfm";
 import { ReplaceImages } from "helpers/ReplaceImages";
-
 import * as Styled from "./styles.d";
 import DownloadFiles from "Components/DownloadFiles/DownloadFiles";
+import Spinner from "Components/Spinner/Spinner";
+import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+
+import article1 from "assets/images/article.svg";
+import article2 from "assets/images/article2.svg";
+
+const images = [article1, article2];
 
 export default function Article() {
   const { token } = useSelector((state: any) => state.user);
@@ -51,11 +56,9 @@ export default function Article() {
     })();
   }, [params.id, token, history]);
 
-  console.log({ loading, error });
-
   return (
     <Styled.Article>
-      <section style={{ paddingTop: 120 }} className="content-section">
+      <section style={{ paddingTop: 140 }} className="content-section">
         <ReactMarkdown
           children={
             result ? ReplaceImages(result.content || "", result.images) : ""
@@ -75,7 +78,7 @@ export default function Article() {
                 //@ts-ignore
                 <SyntaxHighlighter
                   children={String(children).replace(/\n$/, "")}
-                  style={atomDark}
+                  style={materialDark}
                   language={match[1]}
                   PreTag="div"
                   showLineNumbers={true}
@@ -93,6 +96,8 @@ export default function Article() {
       {result && result?.files?.length > 0 && (
         <DownloadFiles name={result.files[0].name} />
       )}
+
+      {loading && <Spinner />}
     </Styled.Article>
   );
 }

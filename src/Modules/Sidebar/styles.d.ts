@@ -10,6 +10,10 @@ export const Sidebar = styled.aside`
     z-index: 50;
     padding: 10px;
 
+    @media only screen and (max-width: 700px) {
+      width: 100%;
+    }
+
     ol {
       display: flex;
       flex-direction: column;

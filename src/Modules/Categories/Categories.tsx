@@ -15,7 +15,7 @@ export const CATEGORIES: string[] = [
 
 interface CategoriesProps {
   setCategories: (p: any) => void;
-  categories: string[] | [];
+  categories: string[];
 }
 
 export default function Categories({
@@ -25,8 +25,7 @@ export default function Categories({
   return (
     <Styled.Categories>
       {CATEGORIES.map((category, i: number) => {
-        //@ts-ignore
-        const isIn: any = categories.includes(category);
+        const isIn: boolean = categories.includes(category);
 
         function ToggleCategories() {
           isIn

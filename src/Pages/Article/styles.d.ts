@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import article from "assets/images/article2.svg";
 
 export const Article = styled.main`
   width: 100%;
@@ -6,6 +7,9 @@ export const Article = styled.main`
   flex-direction: column;
   align-items: center;
   background-color: ${({ theme }) => theme.primaryColor};
+  background-image: url(${article});
+  background-size: cover;
+  background-attachment: fixed;
 
   .content-section {
     width: 60%;
@@ -60,7 +64,8 @@ export const Article = styled.main`
     .span-styles {
       background-color: #181818;
       padding: 5px;
-      border-radius: 5px;
+      border-radius: 10px;
+      margin: 5px;
     }
 
     img {
