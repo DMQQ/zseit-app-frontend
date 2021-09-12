@@ -37,8 +37,11 @@ export const Header = styled.header`
   .button-hover {
     border-color: #00c896;
     color: #00c896;
-
     transition: all 100ms linear;
+
+    @media only screen and (max-width: 600px) {
+      display: none;
+    }
 
     :hover {
       border-color: white;

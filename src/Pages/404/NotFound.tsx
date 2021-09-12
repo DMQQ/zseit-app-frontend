@@ -22,7 +22,7 @@ export default function NotFound() {
           justifyContent: "center",
         }}
       >
-        <NotFoundSvg />
+        <NotFoundSvg style={{ marginBottom: 10 }} />
         <Button
           variant="contained"
           color="primary"

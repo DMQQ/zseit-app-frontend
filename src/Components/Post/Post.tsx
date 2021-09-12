@@ -2,6 +2,7 @@ import * as Styled from "./styles.d";
 import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { API } from "assets/constants/consts";
+import { useSelector } from "react-redux";
 
 interface PostProps {
   title: string;
@@ -18,16 +19,25 @@ export default function Post({
   categories,
   images,
   description,
+  needAccount,
 }: PostProps) {
   const history = useHistory();
 
   const Navigate = () => history.push(`/article/id=${id}/title=${title}`);
-
   const cats = categories.slice(0, 5);
+
+  const user = useSelector((state: any) => state.user);
+
+  const requiresUser = !user.token && needAccount;
 
   return (
     <Styled.Container>
-      <Button variant="text" className="no-margin" onClick={Navigate}>
+      <Button
+        variant="text"
+        className="no-margin"
+        onClick={Navigate}
+        disabled={requiresUser}
+      >
         <section className="post">
           <img
             className="post__img"

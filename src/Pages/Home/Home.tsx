@@ -72,11 +72,15 @@ export default function Home() {
           </motion.div>
         )}
 
-        <h2 className="content__headings">Dla zalogowanych </h2>
+        {UserPosts.length > 0 && (
+          <>
+            <h2 className="content__headings">Dla zalogowanych </h2>
 
-        {UserPosts?.map((post: any) => {
-          return <Post key={post.id} {...post} />;
-        })}
+            {UserPosts?.map((post: any) => {
+              return <Post key={post.id} {...post} />;
+            })}
+          </>
+        )}
       </section>
       <Footer />
     </Styled.Container>

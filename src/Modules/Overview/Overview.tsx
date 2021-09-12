@@ -11,7 +11,7 @@ export default function Overview() {
     <Styled.Container ref={containerRef}>
       <section className="content">
         <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          Miejsce gromadzenia wiedzy i materiałów dla programistów
+          Miejsce gromadzenia wiedzy i materiałów dla uczniów ZSEIT
         </motion.h1>
         <motion.div
           initial={{ y: "100%" }}

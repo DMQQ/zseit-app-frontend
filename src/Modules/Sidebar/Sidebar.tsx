@@ -31,10 +31,20 @@ export default function Sidebar({ sidebar }: SidebarProps) {
             transition={{ duration: 0.5 }}
           >
             <motion.ol>
-              <div style={{ padding: 10, marginTop: 35 }}>
+              <div
+                style={{
+                  padding: 10,
+                  marginTop: 35,
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
                 <Burger />
               </div>
               <User />
+
+              <h3>Polecane kursy wkrótce</h3>
             </motion.ol>
           </motion.div>
         )}

@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-export const Auth = styled.main`
+export const Auth = styled(motion.main)`
   display: flex;
   flex-direction: column;
   z-index: 20;
@@ -16,6 +17,8 @@ export const Auth = styled.main`
     padding: 15px;
     border-radius: 5px;
     z-index: 31;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.25);
+
     &__input {
       margin-top: 10px;
     }

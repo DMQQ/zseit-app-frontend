@@ -13,14 +13,15 @@ export default function SearchForm() {
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state.user.token);
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("ALL");
   const [categories, setCategories] = useState("FRONTEND");
 
   async function onSearch() {
     try {
       dispatch(postsAction.loading());
+      console.log({search,categories})
       const { data, status } = await axios.get(
-        `${API}/posts/search=${search || "ALL"}/category=${categories || ""}`,
+        `${API}/posts/search=${search}/category=${categories || "NULL"}`,
         {
           headers: {
             token,

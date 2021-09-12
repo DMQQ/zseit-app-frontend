@@ -12,10 +12,7 @@ import DownloadFiles from "Components/DownloadFiles/DownloadFiles";
 import Spinner from "Components/Spinner/Spinner";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-import article1 from "assets/images/article.svg";
-import article2 from "assets/images/article2.svg";
-
-const images = [article1, article2];
+import { ReactComponent as Error } from "assets/images/error.svg";
 
 export default function Article() {
   const { token } = useSelector((state: any) => state.user);
@@ -98,6 +95,8 @@ export default function Article() {
       )}
 
       {loading && <Spinner />}
+
+      {!!error && <Error />}
     </Styled.Article>
   );
 }

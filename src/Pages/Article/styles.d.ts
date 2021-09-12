@@ -14,7 +14,7 @@ export const Article = styled.main`
   .content-section {
     width: 60%;
     color: ${({ theme }) => theme.secondaryColor};
-    min-height: 95vh;
+    min-height: 100vh;
 
     word-wrap: normal;
     word-break: inherit;

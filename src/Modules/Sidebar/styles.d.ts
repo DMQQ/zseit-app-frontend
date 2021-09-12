@@ -9,20 +9,19 @@ export const Sidebar = styled.aside`
     right: 0;
     z-index: 50;
     padding: 10px;
+    color: #00c896;
 
     @media only screen and (max-width: 700px) {
       width: 100%;
     }
 
-    ol {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+    h3 {
+      color: #00c896;
+      margin-top: 50px;
     }
 
-    li {
-      color: white;
-      padding: 10px;
+    ul {
+      padding: 20px;
     }
   }
 `;
