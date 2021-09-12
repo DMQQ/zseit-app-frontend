@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { Suspense, useState, lazy } from "react";
 import { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
@@ -19,11 +19,12 @@ import Header from "./Components/Header/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { UserActions } from "./redux/User/user";
 import Auth from "./Pages/Auth/Auth";
-import Dashboard from "Pages/Dashboard/Dashboard";
 import Article from "Pages/Article/Article";
 import Sidebar from "Modules/Sidebar/Sidebar";
 import NotFound from "Pages/404/NotFound";
 import ProtectedRoute from "Modules/ProtectedRoute/ProtectedRoute";
+
+const Dashboard = lazy(() => import("Pages/Dashboard/Dashboard"));
 
 export default function App() {
   const { getFromLocalStorage } = useLocalStorage();
@@ -52,7 +53,6 @@ export default function App() {
         <Router>
           <Header />
           <Sidebar sidebar={sidebar} />
-
           <Switch>
             <Route exact path={HOME} component={Home} />
             <Route exact path={LOGIN} component={Auth} />

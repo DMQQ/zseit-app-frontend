@@ -7,16 +7,16 @@ export const Sidebar = styled.aside`
     width: 400px;
     height: 100vh;
     right: 0;
-    z-index: 50;
+    z-index: 70;
     padding: 10px;
-    color: #00c896;
+    color: white;
 
     @media only screen and (max-width: 700px) {
       width: 100%;
     }
 
     h3 {
-      color: #00c896;
+      color: white;
       margin-top: 50px;
     }
 

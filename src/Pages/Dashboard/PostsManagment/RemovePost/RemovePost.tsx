@@ -54,7 +54,7 @@ export default function RemovePosts() {
         setPosts(response.data);
       } catch (error) {}
     })();
-  }, [refresh]);
+  }, [refresh, user.token]);
 
   return (
     <Styled.Container>

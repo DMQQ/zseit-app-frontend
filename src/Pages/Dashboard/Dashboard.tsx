@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PostsManagment from "./PostsManagment/PostsManagment";
 import * as Styled from "./styles.d";
+import UsersManagment from "./UsersManagment/UsersManagment";
 
 const ACTIONS = {
   posts: "POSTS",
@@ -12,6 +13,7 @@ export default function Dashboard() {
   return (
     <Styled.Dashboard>
       {action === ACTIONS.posts && <PostsManagment />}
+      {action === ACTIONS.users && <UsersManagment />}
     </Styled.Dashboard>
   );
 }

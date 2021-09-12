@@ -20,7 +20,9 @@ export default function User() {
 
   return (
     <Styled.User>
-      <h2 className="username">Hej {user?.username?.split("@")[0]}</h2>
+      <h2 className="username">
+        {user.username && "Hej"} {user?.username?.split("@")[0]}
+      </h2>
       {user.token && (
         <Button
           variant="outlined"

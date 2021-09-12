@@ -5,7 +5,7 @@ export const User = styled.section`
   padding: 10px;
 
   .username {
-    color: #00c896;
+    color: white;
     font-size: 30px;
   }
 `;

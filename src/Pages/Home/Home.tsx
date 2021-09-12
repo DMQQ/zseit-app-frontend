@@ -27,8 +27,8 @@ export default function Home() {
           dispatch(postsAction.SaveData({ data }));
           dispatch(postsAction.loading());
         }
-      } catch (error) {
-        dispatch(postsAction.error({ error }));
+      } catch (error: any) {
+        dispatch(postsAction.error({ error: "Błąd" }));
       }
     })();
 
