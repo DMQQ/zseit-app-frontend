@@ -79,7 +79,7 @@ export default function AddPost() {
 
         setTimeout(() => {
           history.push(`/article/id=${id}/title=${title}`);
-        }, 2000);
+        }, 1000);
       });
   }
 
@@ -152,9 +152,9 @@ export default function AddPost() {
             <Button variant="contained" color="primary" type="submit">
               Opublikuj
             </Button>
-            <Button variant="contained" type="submit">
+            {/*    <Button variant="contained" type="submit">
               Dokończ później
-            </Button>
+            </Button> */}
           </div>
         </form>
       </Container>

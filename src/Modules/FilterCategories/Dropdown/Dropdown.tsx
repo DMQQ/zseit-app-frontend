@@ -6,9 +6,15 @@ interface DropDownProps {
   show: boolean;
   toggle: () => void;
   Add: (cat: string) => void;
+  categories: string;
 }
 
-export default function Dropdown({ show, toggle, Add }: DropDownProps) {
+export default function Dropdown({
+  show,
+  toggle,
+  Add,
+  categories,
+}: DropDownProps) {
   return (
     <AnimatePresence>
       {show && (
@@ -34,9 +40,9 @@ export default function Dropdown({ show, toggle, Add }: DropDownProps) {
             return (
               <li key={cat}>
                 <Button
-                  variant="outlined"
-                  color="inherit"
-                  style={{ color: "white", margin: 5 }}
+                  variant={categories === cat ? "contained" : "outlined"}
+                  color="primary"
+                  style={{ margin: 5 }}
                   onClick={() => {
                     Add(cat);
                     toggle();

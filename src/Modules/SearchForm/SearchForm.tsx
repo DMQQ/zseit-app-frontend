@@ -19,7 +19,7 @@ export default function SearchForm() {
   async function onSearch() {
     try {
       dispatch(postsAction.loading());
-      console.log({search,categories})
+      console.log({ search, categories });
       const { data, status } = await axios.get(
         `${API}/posts/search=${search}/category=${categories || "NULL"}`,
         {
@@ -37,14 +37,14 @@ export default function SearchForm() {
         });
       }
     } catch (err) {
-      // dispatch(postsAction.error({ error: err })); fix later
+      dispatch(postsAction.error({ error: err })); // fix later
       dispatch(postsAction.loading());
     }
   }
 
   return (
     <Styled.Container>
-      <FilterCategories setCategories={setCategories} />
+      <FilterCategories setCategories={setCategories} categories={categories} />
       <Styled.SearchForm
         type="search"
         className="input-field"

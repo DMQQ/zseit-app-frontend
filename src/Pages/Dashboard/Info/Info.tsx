@@ -20,7 +20,7 @@ export default function Info() {
         </li>
         <li>
           <h3>Zdjęcia</h3>
-          <p>![tekst alternatywny](nazwa.jpg)</p>
+          <p>![tekst_alternatywny](nazwa.jpg)</p>
         </li>
         <li>
           <h3>Kod</h3>

@@ -5,9 +5,13 @@ import Dropdown from "./Dropdown/Dropdown";
 
 interface FilterProps {
   setCategories: any;
+  categories: string;
 }
 
-export default function FilterCategories({ setCategories }: FilterProps) {
+export default function FilterCategories({
+  setCategories,
+  categories,
+}: FilterProps) {
   const [show, setShow] = useState(false);
 
   function toggle() {
@@ -27,7 +31,7 @@ export default function FilterCategories({ setCategories }: FilterProps) {
         <ArrowDropDownIcon style={{ color: "white", fontSize: 35 }} />
       </Button>
 
-      <Dropdown show={show} toggle={toggle} Add={Add} />
+      <Dropdown categories={categories} show={show} toggle={toggle} Add={Add} />
     </div>
   );
 }
