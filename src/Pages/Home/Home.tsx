@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API } from "assets/constants/consts";
 import * as Styled from "./styles.d";
@@ -13,10 +13,8 @@ import { motion } from "framer-motion";
 
 export default function Home() {
   const { token } = useSelector((state: any) => state.user);
-  const { posts } = useSelector((state: any) => state.posts);
+  const { posts, premium } = useSelector((state: any) => state.posts);
   const dispatch = useDispatch();
-
-  const [UserPosts, setUserPosts] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -37,7 +35,7 @@ export default function Home() {
         const { data } = await axios.get(`${API}/posts/user-only`, {
           headers: { token },
         });
-        setUserPosts(data);
+        dispatch(postsAction.SavePremium({ data }));
       } catch (error) {}
     })();
   }, [token, dispatch]);
@@ -72,11 +70,11 @@ export default function Home() {
           </motion.div>
         )}
 
-        {UserPosts.length > 0 && (
+        {premium.length > 0 && (
           <>
             <h2 className="content__headings">Dla zalogowanych </h2>
 
-            {UserPosts?.map((post: any) => {
+            {premium?.map((post: any) => {
               return <Post key={post.id} {...post} />;
             })}
           </>

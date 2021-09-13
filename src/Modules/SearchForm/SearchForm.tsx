@@ -14,14 +14,13 @@ export default function SearchForm() {
   const token = useSelector((state: any) => state.user.token);
 
   const [search, setSearch] = useState("ALL");
-  const [categories, setCategories] = useState("FRONTEND");
+  const [categories, setCategories] = useState("NULL");
 
   async function onSearch() {
     try {
       dispatch(postsAction.loading());
-      console.log({ search, categories });
       const { data, status } = await axios.get(
-        `${API}/posts/search=${search}/category=${categories || "NULL"}`,
+        `${API}/posts/search=${search}/category=${categories}`,
         {
           headers: {
             token,
@@ -35,6 +34,8 @@ export default function SearchForm() {
           top: 700,
           behavior: "smooth",
         });
+
+        setCategories("NULL");
       }
     } catch (err) {
       dispatch(postsAction.error({ error: err })); // fix later

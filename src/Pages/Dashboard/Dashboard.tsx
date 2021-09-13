@@ -1,6 +1,6 @@
+import DashboardContextProvider from "Context/DashboardContext";
 import { useState } from "react";
 import PostsManagment from "./PostsManagment/PostsManagment";
-
 import * as Styled from "./styles.d";
 import UsersManagment from "./UsersManagment/UsersManagment";
 
@@ -10,11 +10,13 @@ const ACTIONS = {
 };
 
 export default function Dashboard() {
-  const [action, setAction] = useState(ACTIONS.posts);
+  const [action] = useState(ACTIONS.posts);
   return (
-    <Styled.Dashboard>
-      {action === ACTIONS.posts && <PostsManagment />}
-      {action === ACTIONS.users && <UsersManagment />}
-    </Styled.Dashboard>
+    <DashboardContextProvider>
+      <Styled.Dashboard>
+        {action === ACTIONS.posts && <PostsManagment />}
+        {action === ACTIONS.users && <UsersManagment />}
+      </Styled.Dashboard>
+    </DashboardContextProvider>
   );
 }

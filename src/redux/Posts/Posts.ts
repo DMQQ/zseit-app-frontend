@@ -6,6 +6,8 @@ const PostsSlice = createSlice({
     posts: [],
     loading: false,
     error: "",
+
+    premium: [],
   },
   reducers: {
     SaveData(state, { payload }) {
@@ -17,6 +19,9 @@ const PostsSlice = createSlice({
     error(state, { payload }) {
       state.error = payload.error;
       state.loading = false;
+    },
+    SavePremium(state, { payload }) {
+      state.premium = payload.data;
     },
   },
 });
