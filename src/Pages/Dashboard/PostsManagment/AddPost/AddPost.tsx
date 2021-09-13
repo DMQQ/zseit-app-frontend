@@ -12,9 +12,9 @@ import { API } from "assets/constants/consts";
 import { useSelector } from "react-redux";
 import Categories from "Modules/Categories/Categories";
 import axios from "axios";
-import { useHistory } from "react-router";
 
 import Info from "../../Info/Info";
+import Modal from "Pages/Dashboard/Modal/Modal";
 
 export default function AddPost() {
   const [files, setFiles] = useState<any>([]);
@@ -26,12 +26,13 @@ export default function AddPost() {
   const [file, setFile] = useState<any>();
   const { token } = useSelector((state: any) => state.user);
 
-  const history = useHistory();
+  const [imagesUploaded, setImagesUploaded] = useState(false);
+  const [filesUploaded, setFilesUploaded] = useState(false);
+
+  const [added, setAdded] = useState(false);
 
   async function onSubmit(e: any) {
     e.preventDefault();
-
-    if (!title || !content || !categories || !description) return;
 
     axios
       .post(
@@ -49,37 +50,50 @@ export default function AddPost() {
           },
         }
       )
-      .then(({ data }) => {
+      .then(async ({ data }) => {
         const id = data.insertId;
+
+        if (id) {
+          setAdded(true);
+        }
 
         const formdata = new FormData();
         files.forEach((file: any) => {
           formdata.append("images", file);
         });
 
-        fetch(`${API}/admin/upload/id=${id}`, {
+        await fetch(`${API}/admin/upload/id=${id}`, {
           method: "POST",
           body: formdata,
           headers: {
             token,
           },
-        });
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.message === "Uploaded") {
+              setImagesUploaded(true);
+            }
+          });
 
         const fileForm = new FormData();
+        file.forEach((file: any) => {
+          fileForm.append("files", file);
+        });
 
-        fileForm.append("files", file);
-
-        fetch(`${API}/admin/upload/files/id=${id}`, {
+        await fetch(`${API}/admin/upload/files/id=${id}`, {
           method: "POST",
           body: fileForm,
           headers: {
             token,
           },
-        });
-
-        setTimeout(() => {
-          history.push(`/article/id=${id}/title=${title}`);
-        }, 1000);
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.message === "Uploaded") {
+              setFilesUploaded(true);
+            }
+          });
       });
   }
 
@@ -141,6 +155,7 @@ export default function AddPost() {
             filesLimit={5}
           />
           <br />
+
           <DropzoneArea
             acceptedFiles={[]}
             dropzoneText="plik"
@@ -149,12 +164,14 @@ export default function AddPost() {
           />
 
           <div className="buttons">
-            <Button variant="contained" color="primary" type="submit">
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              disabled={added}
+            >
               Opublikuj
             </Button>
-            {/*    <Button variant="contained" type="submit">
-              Dokończ później
-            </Button> */}
           </div>
         </form>
       </Container>
@@ -169,6 +186,10 @@ export default function AddPost() {
       </Button>
 
       {showHelp && <Info />}
+
+      {filesUploaded && <Modal text={"Plik dodany"} style={{ bottom: 70 }} />}
+      {imagesUploaded && <Modal text={"Zdjęcia dodane"} />}
+      {added && <Modal text="Post dodany" style={{ bottom: 120 }} />}
     </Styled.Dashboard>
   );
 }
