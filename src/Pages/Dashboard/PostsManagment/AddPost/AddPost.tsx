@@ -31,6 +31,9 @@ export default function AddPost() {
 
   const [added, setAdded] = useState(false);
 
+  const [imagesProgress, setImagesProgress] = useState(0);
+  const [fileProgress, setFileProgress] = useState(0);
+
   async function onSubmit(e: any) {
     e.preventDefault();
 
@@ -62,16 +65,19 @@ export default function AddPost() {
           formdata.append("images", file);
         });
 
-        await fetch(`${API}/admin/upload/id=${id}`, {
-          method: "POST",
-          body: formdata,
-          headers: {
-            token,
-          },
-        })
-          .then((res) => res.json())
+        axios
+          .post(`${API}/admin/upload/id=${id}`, formdata, {
+            headers: {
+              token,
+            },
+            onUploadProgress: (progressEvent) => {
+              setImagesProgress(
+                Math.round((progressEvent.loaded * 100) / progressEvent.total)
+              );
+            },
+          })
           .then((data) => {
-            if (data.message === "Uploaded") {
+            if (data.data.message === "Uploaded") {
               setImagesUploaded(true);
             }
           });
@@ -81,16 +87,19 @@ export default function AddPost() {
           fileForm.append("files", file);
         });
 
-        await fetch(`${API}/admin/upload/files/id=${id}`, {
-          method: "POST",
-          body: fileForm,
-          headers: {
-            token,
-          },
-        })
-          .then((res) => res.json())
+        axios
+          .post(`${API}/admin/upload/files/id=${id}`, fileForm, {
+            headers: {
+              token,
+            },
+            onUploadProgress: (progressEvent) => {
+              setFileProgress(
+                Math.round((progressEvent.loaded * 100) / progressEvent.total)
+              );
+            },
+          })
           .then((data) => {
-            if (data.message === "Uploaded") {
+            if (data.data.message === "Uploaded") {
               setFilesUploaded(true);
             }
           });
@@ -148,6 +157,12 @@ export default function AddPost() {
             label="Wymaga konta"
           />
 
+          {imagesProgress !== 0 && (
+            <div className="progress" style={{ width: `${imagesProgress}%` }}>
+              {imagesProgress}%
+            </div>
+          )}
+
           <DropzoneArea
             acceptedFiles={["image/*"]}
             dropzoneText="Upuść zdjęcia w tym miejscu"
@@ -156,11 +171,18 @@ export default function AddPost() {
           />
           <br />
 
+          {fileProgress !== 0 && (
+            <div className="progress" style={{ width: `${fileProgress}%` }}>
+              {fileProgress}%
+            </div>
+          )}
+
           <DropzoneArea
             acceptedFiles={[]}
             dropzoneText="plik"
             filesLimit={1}
             onChange={(file) => setFile(file)}
+            maxFileSize={52428800}
           />
 
           <div className="buttons">

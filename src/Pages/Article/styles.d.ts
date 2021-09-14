@@ -16,9 +16,6 @@ export const Article = styled.main`
     color: ${({ theme }) => theme.secondaryColor};
     min-height: 100vh;
 
-    word-wrap: normal;
-    word-break: inherit;
-
     @media only screen and (max-width: 800px) {
       width: 90%;
     }

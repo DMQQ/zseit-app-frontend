@@ -25,7 +25,8 @@ export default function Header() {
   }, [pathname]);
 
   useEffect(() => {
-    if (pathname === ADMIN_PANEL) return setHeaderHeight(80);
+    if (pathname === ADMIN_PANEL || pathname.includes("article"))
+      return setHeaderHeight(80);
 
     window.addEventListener("scroll", onScroll);
 
