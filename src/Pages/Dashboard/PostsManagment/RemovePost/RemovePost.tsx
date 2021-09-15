@@ -19,7 +19,7 @@ export default function RemovePosts() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get(`${API}/admin/get/all`, {
+        const response = await axios.get(`${API}/admin/posts/get/all`, {
           headers: {
             token: user.token,
           },

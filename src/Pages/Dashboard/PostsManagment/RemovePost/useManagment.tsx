@@ -8,7 +8,7 @@ export default function useManagment({ setRefresh, refresh }: any) {
   async function Publish(id: number) {
     axios
       .put(
-        `${API}/admin/update/publish`,
+        `${API}/admin/posts/update/publish`,
         {
           id,
         },
@@ -25,7 +25,7 @@ export default function useManagment({ setRefresh, refresh }: any) {
 
   async function Remove(id: number) {
     axios
-      .delete(`${API}/admin/delete/post/id=${id}`, {
+      .delete(`${API}/admin/posts/delete/post/id=${id}`, {
         headers: {
           token: user.token,
         },
@@ -38,7 +38,7 @@ export default function useManagment({ setRefresh, refresh }: any) {
   async function Hide(id: number) {
     axios
       .put(
-        `${API}/admin/update/unpublish`,
+        `${API}/admin/posts/update/unpublish`,
         { id },
         {
           headers: {

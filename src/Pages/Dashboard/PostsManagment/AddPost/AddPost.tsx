@@ -39,7 +39,7 @@ export default function AddPost() {
 
     axios
       .post(
-        `${API}/admin/create`,
+        `${API}/admin/posts/create`,
         {
           title,
           content,
@@ -66,7 +66,7 @@ export default function AddPost() {
         });
 
         axios
-          .post(`${API}/admin/upload/id=${id}`, formdata, {
+          .post(`${API}/admin/posts/upload/id=${id}`, formdata, {
             headers: {
               token,
             },
@@ -88,7 +88,7 @@ export default function AddPost() {
         });
 
         axios
-          .post(`${API}/admin/upload/files/id=${id}`, fileForm, {
+          .post(`${API}/admin/posts/upload/files/id=${id}`, fileForm, {
             headers: {
               token,
             },

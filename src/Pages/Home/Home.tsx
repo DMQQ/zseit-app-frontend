@@ -65,7 +65,7 @@ export default function Home() {
           return <Post key={post.id} {...post} />;
         })}
 
-        {posts.length === 0 && (
+        {!error && posts.length === 0 && (
           <motion.div
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
