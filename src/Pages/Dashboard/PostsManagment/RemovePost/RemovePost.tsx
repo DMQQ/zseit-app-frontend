@@ -6,6 +6,7 @@ import { API } from "assets/constants/consts";
 import { Button } from "@material-ui/core";
 import * as Styled from "./styles.d";
 import { ReactComponent as NotfoundImage } from "assets/images/404.svg";
+import useManagment from "./useManagment";
 
 export default function RemovePosts() {
   const user = useSelector((state: any) => state.user);
@@ -13,35 +14,7 @@ export default function RemovePosts() {
 
   const [refresh, setRefresh] = useState(0);
 
-  async function Publish(id: number) {
-    axios
-      .put(
-        `${API}/admin/update/publish`,
-        {
-          id,
-        },
-        {
-          headers: {
-            token: user.token,
-          },
-        }
-      )
-      .then(
-        ({ data }) => data.message === "Updated" && setRefresh(refresh + 1)
-      );
-  }
-
-  async function Remove(id: number) {
-    axios
-      .delete(`${API}/admin/delete/post/id=${id}`, {
-        headers: {
-          token: user.token,
-        },
-      })
-      .then(
-        ({ data }) => data.message === "Deleted" && setRefresh(refresh + 1)
-      );
-  }
+  const { Publish, Remove, Hide } = useManagment({ setRefresh, refresh });
 
   useEffect(() => {
     (async () => {
@@ -79,6 +52,15 @@ export default function RemovePosts() {
                 disabled={el.published}
               >
                 Opublikuj
+              </Button>
+              <Button
+                onClick={() => Hide(el.id)}
+                color="secondary"
+                variant="contained"
+                className="container__btn"
+                disabled={!el.published}
+              >
+                Ukryj
               </Button>
             </div>
           </section>

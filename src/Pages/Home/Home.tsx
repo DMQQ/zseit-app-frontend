@@ -10,10 +10,11 @@ import useIntersectionObserver from "Hooks/useIntersectionObserver";
 import Footer from "Modules/Footer/Footer";
 import { ReactComponent as NotfoundImage } from "assets/images/404.svg";
 import { motion } from "framer-motion";
+import { ReactComponent as Error } from "assets/images/error.svg";
 
 export default function Home() {
   const { token } = useSelector((state: any) => state.user);
-  const { posts, premium } = useSelector((state: any) => state.posts);
+  const { posts, premium, error } = useSelector((state: any) => state.posts);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,6 +58,8 @@ export default function Home() {
         <h2 className="content__headings">
           {posts.length === 0 ? "Nie znaleziono" : "Dostępne: " + posts?.length}
         </h2>
+
+        {error && <Error />}
 
         {posts?.map((post: any) => {
           return <Post key={post.id} {...post} />;

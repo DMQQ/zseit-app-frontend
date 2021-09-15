@@ -15,7 +15,7 @@ import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { ReactComponent as Error } from "assets/images/error.svg";
 
 export default function Article() {
-  const { token } = useSelector((state: any) => state.user);
+  const { token, role } = useSelector((state: any) => state.user);
   const params = useParams<any>();
 
   const [result, setResult] = useState<any>({});
@@ -29,7 +29,10 @@ export default function Article() {
       try {
         setLoading(true);
         const { data, status } = await axios.get(
-          `${API}/posts/postId=${params.id}`,
+          role === "ADMIN"
+            ? `${API}/admin/unpublished/id=${params.id}`
+            : `${API}/posts/postId=${params.id}`,
+
           {
             headers: {
               token,
@@ -51,7 +54,7 @@ export default function Article() {
         setLoading(false);
       }
     })();
-  }, [params.id, token, history]);
+  }, [params.id, token, history, role]);
 
   return (
     <Styled.Article>
