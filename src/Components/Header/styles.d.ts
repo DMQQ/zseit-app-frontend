@@ -17,6 +17,7 @@ export const Header = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: 5px;
 
     &__logo {
       color: ${({ theme }) => theme.secondaryColor};
@@ -24,6 +25,21 @@ export const Header = styled.header`
       font-size: 20px;
       text-align: left;
       font-weight: bold;
+
+      width: 15%;
+
+      @media only screen and (max-width: 1100px) {
+        width: 40%;
+      }
+      @media only screen and (max-width: 500px) {
+        width: 60%;
+      }
+
+      &__status {
+        font-size: 13px;
+        color: #00c896;
+        margin-bottom: 10px;
+      }
     }
   }
 
@@ -39,7 +55,7 @@ export const Header = styled.header`
     color: #00c896;
     transition: all 100ms linear;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 1000px) {
       display: none;
     }
 

@@ -5,7 +5,6 @@ export const Container = styled.main`
   width: 100%;
   height: 100vh;
   background-color: ${({ theme }) => theme.primaryColor};
-  margin-bottom: 100px;
   display: flex;
   align-items: center;
   justify-content: center;

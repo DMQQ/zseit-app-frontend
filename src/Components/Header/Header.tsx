@@ -42,11 +42,17 @@ export default function Header() {
   const user = useSelector((state: any) => state.user);
   const { login } = useSelector((state: any) => state.modals);
 
+  const location = useLocation();
+
+  function NavigateHome() {
+    if (location.pathname !== "/") history.push("/");
+  }
+
   return (
     <Styled.Header height={headerHeight}>
       <header className="header">
-        <Button className="header__logo" onClick={() => history.push("/")}>
-          PROGRAMISTA
+        <Button className="header__logo" onClick={NavigateHome}>
+          PROGRAMISTA <span className="header__logo__status">BETA</span>
         </Button>
         {pathname === "/" && <SearchForm />}
         <div

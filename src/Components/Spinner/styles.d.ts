@@ -34,7 +34,7 @@ export const Container = styled.div`
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: ${({ theme }) => theme.secondaryColor};
+    background: #00c896;
     margin: -4px 0 0 -4px;
   }
   .lds-roller div:nth-child(1) {

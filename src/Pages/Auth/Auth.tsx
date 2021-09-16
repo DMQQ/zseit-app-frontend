@@ -1,6 +1,6 @@
 import * as Styled from "./styles.d";
 import { Button, TextField } from "@material-ui/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useInput from "Hooks/useInput";
 import axios from "axios";
 import { API, USER_PREFIX } from "assets/constants/consts";
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { UserActions } from "redux/User/user";
 import { useHistory } from "react-router";
 import useLocalStorage from "Hooks/useLocalStorage";
+import { ModalActions } from "redux/Modals/Modals";
 
 export default function Auth() {
   const [email, setEmail] = useState("");
@@ -68,19 +69,25 @@ export default function Auth() {
     } catch (error: any) {
       dispatch(
         UserActions.error({
-          error: "Rejestracja nie powiodła się",
+          error: error.response.data.message,
         })
       );
       dispatch(UserActions.loading());
       setEmail("");
       setPassword("");
+      setRepeatPassword("");
     }
   }
+
+  useEffect(() => {
+    dispatch(ModalActions.toggleSideBar());
+  }, [dispatch]);
 
   const { error } = useSelector((state: any) => state.user);
 
   return (
     <Styled.Auth>
+      <h2 className="title">Rejestracja konta</h2>
       <form className="form" onSubmit={onSubmit}>
         {!!error && <p style={{ marginBottom: 10, color: "red" }}>{error}</p>}
 
@@ -129,7 +136,7 @@ export default function Auth() {
           variant="contained"
           color="primary"
           type="submit"
-          disabled={!isFormValid}
+          disabled={!isFormValid || password !== repeatPassword}
         >
           Zaloguj się
         </Button>

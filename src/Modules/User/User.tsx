@@ -23,6 +23,7 @@ export default function User() {
       <h2 className="username">
         {user.username && "Hej"} {user?.username?.split("@")[0]}
       </h2>
+
       {user.token && (
         <Button
           variant="outlined"

@@ -13,8 +13,8 @@ import { useSelector } from "react-redux";
 import Categories from "Modules/Categories/Categories";
 import axios from "axios";
 
-import Info from "../../Info/Info";
-import Modal from "Pages/Dashboard/Modal/Modal";
+import Info from "Components/Info/Info";
+import Modal from "Components/Modal/Modal";
 
 export default function AddPost() {
   const [files, setFiles] = useState<any>([]);
@@ -34,9 +34,7 @@ export default function AddPost() {
   const [imagesProgress, setImagesProgress] = useState(0);
   const [fileProgress, setFileProgress] = useState(0);
 
-  async function onSubmit(e: any) {
-    e.preventDefault();
-
+  async function onSubmit(published: boolean) {
     axios
       .post(
         `${API}/admin/posts/create`,
@@ -46,6 +44,7 @@ export default function AddPost() {
           categories,
           premium,
           description,
+          published,
         },
         {
           headers: {
@@ -55,6 +54,8 @@ export default function AddPost() {
       )
       .then(async ({ data }) => {
         const id = data.insertId;
+        const redirect = data.redirect;
+        console.log(redirect);
 
         if (id) {
           setAdded(true);
@@ -112,11 +113,7 @@ export default function AddPost() {
     <Styled.Dashboard>
       <Container component="section" className="m-container">
         <Categories categories={categories} setCategories={setCategories} />
-        <form
-          className="m-container__form"
-          onSubmit={onSubmit}
-          encType="multipart/form-data"
-        >
+        <form className="m-container__form" encType="multipart/form-data">
           <TextField
             variant="outlined"
             label="Tytuł"
@@ -191,8 +188,18 @@ export default function AddPost() {
               color="primary"
               type="submit"
               disabled={added}
+              onClick={() => onSubmit(true)}
             >
               Opublikuj
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              disabled={added}
+              onClick={() => onSubmit(false)}
+            >
+              Później
             </Button>
           </div>
         </form>

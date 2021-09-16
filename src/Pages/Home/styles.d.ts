@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const Container = styled.main`
   width: 100%;
   display: flex;
-  background-color: white;
   flex-direction: column;
 
   .content {
@@ -14,6 +13,7 @@ export const Container = styled.main`
       padding: 15px;
       font-size: 35px;
       text-align: center;
+      color: white;
     }
   }
 `;

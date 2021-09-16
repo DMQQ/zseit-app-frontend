@@ -11,21 +11,24 @@ import useManagment from "./useManagment";
 export default function RemovePosts() {
   const user = useSelector((state: any) => state.user);
   const [posts, setPosts] = useState([]);
-
   const [refresh, setRefresh] = useState(0);
-
   const { Publish, Remove, Hide } = useManagment({ setRefresh, refresh });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
+        setLoading(true);
         const response = await axios.get(`${API}/admin/posts/get/all`, {
           headers: {
             token: user.token,
           },
         });
         setPosts(response.data);
-      } catch (error) {}
+        setLoading(false);
+      } catch (error) {
+        setLoading(true);
+      }
     })();
   }, [refresh, user.token]);
 
@@ -67,7 +70,7 @@ export default function RemovePosts() {
         );
       })}
 
-      {posts.length === 0 && (
+      {!loading && posts.length === 0 && (
         <div
           style={{
             display: "flex",

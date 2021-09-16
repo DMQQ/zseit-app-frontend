@@ -7,13 +7,7 @@ import useLocalStorage from "./Hooks/useLocalStorage";
 import GlobalStyles from "./styles/globalStyles.d";
 import Spinner from "./Components/Spinner/Spinner";
 import { Dark } from "./assets/constants/colors";
-import {
-  ADMIN_PANEL,
-  ARTICLE,
-  HOME,
-  LOGIN,
-  NOTFOUND,
-} from "./assets/constants/routes";
+import * as CONST from "./assets/constants/routes";
 import Home from "./Pages/Home/Home";
 import Header from "./Components/Header/Header";
 import { useDispatch, useSelector } from "react-redux";
@@ -54,11 +48,15 @@ export default function App() {
           <Header />
           <Sidebar sidebar={sidebar} />
           <Switch>
-            <Route exact path={HOME} component={Home} />
-            <Route exact path={LOGIN} component={Auth} />
-            <ProtectedRoute exact path={ADMIN_PANEL} component={Dashboard} />
-            <Route exact path={ARTICLE} component={Article} />
-            <Route path={NOTFOUND} component={NotFound} />
+            <Route exact path={CONST.HOME} component={Home} />
+            <Route exact path={CONST.LOGIN} component={Auth} />
+            <ProtectedRoute
+              exact
+              path={CONST.ADMIN_PANEL}
+              component={Dashboard}
+            />
+            <Route exact path={CONST.ARTICLE} component={Article} />
+            <Route path={CONST.NOTFOUND} component={NotFound} />
           </Switch>
         </Router>
       </ThemeProvider>

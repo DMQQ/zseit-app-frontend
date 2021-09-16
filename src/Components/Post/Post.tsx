@@ -3,6 +3,9 @@ import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { API } from "assets/constants/consts";
 import { useSelector } from "react-redux";
+import useIntersectionObserver from "Hooks/useIntersectionObserver";
+import { useRef, useState } from "react";
+import { CalcTime } from "helpers/CalcTime";
 
 interface PostProps {
   title: string;
@@ -11,6 +14,7 @@ interface PostProps {
   images: any[];
   description: string;
   needAccount: boolean;
+  created_at: string;
 }
 
 export default function Post({
@@ -20,15 +24,19 @@ export default function Post({
   images,
   description,
   needAccount,
+  created_at,
 }: PostProps) {
   const history = useHistory();
 
   const Navigate = () => history.push(`/article/id=${id}/title=${title}`);
   const cats = categories.slice(0, 5);
-
   const user = useSelector((state: any) => state.user);
-
   const requiresUser = !user.token && needAccount;
+  const ref = useRef<HTMLDivElement | null>(null);
+  const entry = useIntersectionObserver(ref, {});
+  const isVisible = !!entry?.isIntersecting;
+
+  const [isNew] = useState(CalcTime(created_at));
 
   return (
     <Styled.Container>
@@ -37,8 +45,10 @@ export default function Post({
         className="no-margin"
         onClick={Navigate}
         disabled={requiresUser}
+        style={{ opacity: isVisible ? 1 : 0 }}
       >
-        <section className="post">
+        <section className="post" ref={ref}>
+          {isNew && <span className="post__message">NOWY</span>}
           <img
             className="post__img"
             alt="thumbnail"

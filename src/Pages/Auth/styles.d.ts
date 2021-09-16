@@ -7,6 +7,12 @@ export const Auth = styled.main`
   align-items: center;
   justify-content: center;
   background-color: white;
+  flex-direction: column;
+
+  .title {
+    color: #3f50b5;
+    margin-bottom: 10px;
+  }
 
   .form {
     width: 250px;

@@ -30,7 +30,7 @@ export default function Article() {
         setLoading(true);
         const { data, status } = await axios.get(
           role === "ADMIN"
-            ? `${API}/admin/unpublished/id=${params.id}`
+            ? `${API}/admin/posts/unpublished/id=${params.id}`
             : `${API}/posts/postId=${params.id}`,
 
           {

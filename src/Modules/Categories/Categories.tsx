@@ -11,6 +11,8 @@ export const CATEGORIES: string[] = [
   "HTML",
   "CSS",
   "NODE",
+  "PYTHON",
+  "INNE",
 ];
 
 interface CategoriesProps {
