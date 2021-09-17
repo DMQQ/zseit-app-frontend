@@ -45,7 +45,7 @@ export default function Dropdown({
                   style={{ margin: 5 }}
                   onClick={() => {
                     Add(cat);
-                    toggle();
+                    setTimeout(() => toggle(), 300);
                   }}
                 >
                   {cat}

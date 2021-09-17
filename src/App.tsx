@@ -17,6 +17,7 @@ import Article from "Pages/Article/Article";
 import Sidebar from "Modules/Sidebar/Sidebar";
 import NotFound from "Pages/404/NotFound";
 import ProtectedRoute from "Modules/ProtectedRoute/ProtectedRoute";
+import { motion } from "framer-motion";
 
 const Dashboard = lazy(() => import("Pages/Dashboard/Dashboard"));
 
@@ -45,19 +46,25 @@ export default function App() {
       <ThemeProvider theme={Dark}>
         <GlobalStyles />
         <Router>
-          <Header />
-          <Sidebar sidebar={sidebar} />
-          <Switch>
-            <Route exact path={CONST.HOME} component={Home} />
-            <Route exact path={CONST.LOGIN} component={Auth} />
-            <ProtectedRoute
-              exact
-              path={CONST.ADMIN_PANEL}
-              component={Dashboard}
-            />
-            <Route exact path={CONST.ARTICLE} component={Article} />
-            <Route path={CONST.NOTFOUND} component={NotFound} />
-          </Switch>
+          {!loaded ? (
+            <Spinner />
+          ) : (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <Header />
+              <Sidebar sidebar={sidebar} />
+              <Switch>
+                <Route exact path={CONST.HOME} component={Home} />
+                <Route exact path={CONST.LOGIN} component={Auth} />
+                <ProtectedRoute
+                  exact
+                  path={CONST.ADMIN_PANEL}
+                  component={Dashboard}
+                />
+                <Route exact path={CONST.ARTICLE} component={Article} />
+                <Route path={CONST.NOTFOUND} component={NotFound} />
+              </Switch>
+            </motion.div>
+          )}
         </Router>
       </ThemeProvider>
     </Suspense>

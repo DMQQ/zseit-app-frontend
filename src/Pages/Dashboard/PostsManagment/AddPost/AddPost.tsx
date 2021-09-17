@@ -8,13 +8,10 @@ import {
 } from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
 import { useState } from "react";
-import { API } from "assets/constants/consts";
-import { useSelector } from "react-redux";
 import Categories from "Modules/Categories/Categories";
-import axios from "axios";
-
 import Info from "Components/Info/Info";
 import Modal from "Components/Modal/Modal";
+import usePosts from "Hooks/usePosts";
 
 export default function AddPost() {
   const [files, setFiles] = useState<any>([]);
@@ -24,88 +21,15 @@ export default function AddPost() {
   const [premium, setPremium] = useState(false);
   const [description, setDescription] = useState("");
   const [file, setFile] = useState<any>();
-  const { token } = useSelector((state: any) => state.user);
 
-  const [imagesUploaded, setImagesUploaded] = useState(false);
-  const [filesUploaded, setFilesUploaded] = useState(false);
-
-  const [added, setAdded] = useState(false);
-
-  const [imagesProgress, setImagesProgress] = useState(0);
-  const [fileProgress, setFileProgress] = useState(0);
-
-  async function onSubmit(published: boolean) {
-    axios
-      .post(
-        `${API}/admin/posts/create`,
-        {
-          title,
-          content,
-          categories,
-          premium,
-          description,
-          published,
-        },
-        {
-          headers: {
-            token,
-          },
-        }
-      )
-      .then(async ({ data }) => {
-        const id = data.insertId;
-        const redirect = data.redirect;
-        console.log(redirect);
-
-        if (id) {
-          setAdded(true);
-        }
-
-        const formdata = new FormData();
-        files.forEach((file: any) => {
-          formdata.append("images", file);
-        });
-
-        axios
-          .post(`${API}/admin/posts/upload/id=${id}`, formdata, {
-            headers: {
-              token,
-            },
-            onUploadProgress: (progressEvent) => {
-              setImagesProgress(
-                Math.round((progressEvent.loaded * 100) / progressEvent.total)
-              );
-            },
-          })
-          .then((data) => {
-            if (data.data.message === "Uploaded") {
-              setImagesUploaded(true);
-            }
-          });
-
-        const fileForm = new FormData();
-        file.forEach((file: any) => {
-          fileForm.append("files", file);
-        });
-
-        axios
-          .post(`${API}/admin/posts/upload/files/id=${id}`, fileForm, {
-            headers: {
-              token,
-            },
-            onUploadProgress: (progressEvent) => {
-              setFileProgress(
-                Math.round((progressEvent.loaded * 100) / progressEvent.total)
-              );
-            },
-          })
-          .then((data) => {
-            if (data.data.message === "Uploaded") {
-              setFilesUploaded(true);
-            }
-          });
-      });
-  }
+  const {
+    onSubmit,
+    imagesUploaded,
+    filesUploaded,
+    imagesProgress,
+    fileProgress,
+    added,
+  } = usePosts({ files, file });
 
   const [showHelp, setShowHelp] = useState(false);
 
@@ -188,7 +112,16 @@ export default function AddPost() {
               color="primary"
               type="submit"
               disabled={added}
-              onClick={() => onSubmit(true)}
+              onClick={() =>
+                onSubmit({
+                  title,
+                  content,
+                  categories,
+                  premium,
+                  description,
+                  published: true,
+                })
+              }
             >
               Opublikuj
             </Button>
@@ -197,7 +130,16 @@ export default function AddPost() {
               color="primary"
               type="submit"
               disabled={added}
-              onClick={() => onSubmit(false)}
+              onClick={() =>
+                onSubmit({
+                  title,
+                  content,
+                  categories,
+                  premium,
+                  description,
+                  published: false,
+                })
+              }
             >
               Później
             </Button>
