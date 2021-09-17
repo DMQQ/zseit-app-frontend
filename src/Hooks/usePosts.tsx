@@ -19,6 +19,7 @@ export default function usePosts({ files: images, file }: any) {
   const [fileProgress, setFileProgress] = useState(0);
   const [imagesUploaded, setImagesUploaded] = useState(false);
   const [filesUploaded, setFilesUploaded] = useState(false);
+  const [error, setError] = useState<any>();
 
   async function onSubmit(props: onSubmitProps) {
     axios
@@ -79,6 +80,13 @@ export default function usePosts({ files: images, file }: any) {
               setFilesUploaded(true);
             }
           });
+      })
+      .catch((err) => {
+        setError({
+          code: err.response.data.statusCode,
+          message: err.response.data.message,
+        });
+        setAdded(false);
       });
   }
 
@@ -89,5 +97,6 @@ export default function usePosts({ files: images, file }: any) {
     imagesProgress,
     fileProgress,
     added,
+    error,
   };
 }

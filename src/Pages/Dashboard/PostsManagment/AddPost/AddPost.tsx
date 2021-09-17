@@ -29,6 +29,7 @@ export default function AddPost() {
     imagesProgress,
     fileProgress,
     added,
+    error,
   } = usePosts({ files, file });
 
   const [showHelp, setShowHelp] = useState(false);
@@ -37,6 +38,10 @@ export default function AddPost() {
     <Styled.Dashboard>
       <Container component="section" className="m-container">
         <Categories categories={categories} setCategories={setCategories} />
+        <p style={{ color: "red", fontSize: 35, fontWeight: "bold" }}>
+          {error?.message.length > 0 &&
+            "Wystąpił błąd, sprawdź czy pola nie są puste."}
+        </p>
         <form className="m-container__form" encType="multipart/form-data">
           <TextField
             variant="outlined"

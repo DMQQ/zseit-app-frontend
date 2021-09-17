@@ -1,9 +1,11 @@
 import axios from "axios";
 import { API } from "assets/constants/consts";
 import { useSelector } from "react-redux";
+import { useCallback, useEffect, useState } from "react";
 
-export default function useManagment({ setRefresh, refresh }: any) {
+export default function useManagment() {
   const user = useSelector((state: any) => state.user);
+  const [refresh, setRefresh] = useState(0);
 
   async function Publish(id: number) {
     axios
@@ -51,5 +53,35 @@ export default function useManagment({ setRefresh, refresh }: any) {
       );
   }
 
-  return { Publish, Remove, Hide };
+  const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState([]);
+
+  const GetAll = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${API}/admin/posts/get/all`, {
+        headers: {
+          token: user.token,
+        },
+      });
+      setPosts(response.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(true);
+    }
+  }, [user.token]);
+
+  useEffect(() => {
+    GetAll();
+  }, [refresh, user.token, GetAll]);
+
+  return {
+    Publish,
+    Remove,
+    Hide,
+    data: {
+      posts,
+      loading,
+    },
+  };
 }

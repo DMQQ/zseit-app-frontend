@@ -1,40 +1,20 @@
-import axios from "axios";
 import Post from "Components/Post/Post";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { API } from "assets/constants/consts";
 import { Button } from "@material-ui/core";
 import * as Styled from "./styles.d";
 import { ReactComponent as NotfoundImage } from "assets/images/404.svg";
 import useManagment from "./useManagment";
 
 export default function RemovePosts() {
-  const user = useSelector((state: any) => state.user);
-  const [posts, setPosts] = useState([]);
-  const [refresh, setRefresh] = useState(0);
-  const { Publish, Remove, Hide } = useManagment({ setRefresh, refresh });
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(`${API}/admin/posts/get/all`, {
-          headers: {
-            token: user.token,
-          },
-        });
-        setPosts(response.data);
-        setLoading(false);
-      } catch (error) {
-        setLoading(true);
-      }
-    })();
-  }, [refresh, user.token]);
+  const {
+    Publish,
+    Remove,
+    Hide,
+    data: { posts, loading },
+  } = useManagment();
 
   return (
     <Styled.Container>
-      {posts.map((el: any, i) => {
+      {posts.map((el: any) => {
         return (
           <section className="container" key={el.id}>
             <Post {...el} />
