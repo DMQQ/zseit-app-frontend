@@ -10,10 +10,13 @@ import Footer from "Modules/Footer/Footer";
 import { ReactComponent as NotfoundImage } from "assets/images/404.svg";
 import { motion } from "framer-motion";
 import { ReactComponent as Error } from "assets/images/error.svg";
+import { RootState } from "redux/store";
 
 export default function Home() {
   const { token } = useSelector((state: any) => state.user);
-  const { posts, premium, error } = useSelector((state: any) => state.posts);
+  const { posts, premium, error, loading } = useSelector(
+    (state: RootState) => state.posts
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,7 +30,8 @@ export default function Home() {
           dispatch(postsAction.loading());
         }
       } catch (error: any) {
-        dispatch(postsAction.error({ error: "Błąd" }));
+        dispatch(postsAction.error({ error: error.response.data.message }));
+        dispatch(postsAction.loading());
       }
     })();
   }, [token, dispatch]);
@@ -53,7 +57,7 @@ export default function Home() {
           {posts.length === 0 ? "Nie znaleziono" : "Dostępne: " + posts?.length}
         </h2>
 
-        {error && <Error />}
+        {error && !loading && <Error />}
 
         {posts?.map((post: any) => {
           return <Post key={post.id} {...post} />;
@@ -69,7 +73,7 @@ export default function Home() {
 
         {premium.length > 0 && (
           <>
-            <h2 className="content__headings">Dla zalogowanych </h2>
+            <h2 className="content__headings">Dla zalogowanych</h2>
 
             {premium?.map((post: any) => {
               return <Post key={post.id} {...post} />;

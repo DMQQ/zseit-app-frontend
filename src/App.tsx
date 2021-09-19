@@ -18,6 +18,7 @@ import Sidebar from "Modules/Sidebar/Sidebar";
 import NotFound from "Pages/404/NotFound";
 import ProtectedRoute from "Modules/ProtectedRoute/ProtectedRoute";
 import { motion } from "framer-motion";
+import { RootState } from "redux/store";
 
 const Dashboard = lazy(() => import("Pages/Dashboard/Dashboard"));
 
@@ -25,7 +26,7 @@ export default function App() {
   const { getFromLocalStorage } = useLocalStorage();
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-  const { sidebar } = useSelector((state: any) => state.modals);
+  const { sidebar } = useSelector((state: RootState) => state.modals);
 
   const HideLoader = () => setLoaded(true);
 

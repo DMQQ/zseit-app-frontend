@@ -8,19 +8,22 @@ import FilterCategories from "../FilterCategories/FilterCategories";
 import { Button } from "@material-ui/core";
 
 import SearchIcon from "@material-ui/icons/Search";
+import type { RootState } from "redux/store";
 
 export default function SearchForm() {
   const dispatch = useDispatch();
-  const token = useSelector((state: any) => state.user.token);
+  const token = useSelector((state: RootState) => state.user.token);
 
   const [search, setSearch] = useState("");
-  const [categories, setCategories] = useState("NULL");
+  const [categories, setCategories] = useState("");
 
   async function onSearch() {
     try {
       dispatch(postsAction.loading());
       const { data, status } = await axios.get(
-        `${API}/posts/search=${search || "ALL"}/category=${categories}`,
+        `${API}/posts/search=${search || "ALL"}/category=${
+          categories || "NULL"
+        }`,
         {
           headers: {
             token,
@@ -37,8 +40,8 @@ export default function SearchForm() {
 
         setCategories("NULL");
       }
-    } catch (err) {
-      dispatch(postsAction.error({ error: err })); // fix later
+    } catch (error: any) {
+      dispatch(postsAction.error({ error: error.response.data.message })); // fix later
       dispatch(postsAction.loading());
     }
   }

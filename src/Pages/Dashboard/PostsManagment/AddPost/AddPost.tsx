@@ -63,10 +63,11 @@ export default function AddPost() {
 
           <TextField
             variant="outlined"
-            label="Html"
+            label="Zawartość Arykułu"
             size="small"
             className="m-container__form__input"
             multiline={true}
+            minRows={5}
             style={{ marginBottom: 15 }}
             value={content}
             onChange={(e) => setContent(e.target.value)}

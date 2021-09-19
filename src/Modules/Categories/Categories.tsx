@@ -12,6 +12,7 @@ export const CATEGORIES: string[] = [
   "CSS",
   "NODE",
   "PYTHON",
+  "SQL",
   "INNE",
 ];
 
