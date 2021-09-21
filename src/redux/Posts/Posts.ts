@@ -3,25 +3,36 @@ import { createSlice } from "@reduxjs/toolkit";
 const PostsSlice = createSlice({
   name: "posts",
   initialState: {
-    posts: [],
-    loading: false,
-    error: "",
-
-    premium: [],
+    regular: {
+      posts: [],
+      loading: false,
+      error: "",
+    },
+    premium: {
+      posts: [],
+      loading: false,
+      error: "",
+    },
   },
   reducers: {
     SaveData(state, { payload }) {
-      state.posts = payload.data;
+      state.regular.posts = payload.data;
     },
     loading(state) {
-      state.loading = !state.loading;
+      state.regular.loading = !state.regular.loading;
     },
     error(state, { payload }) {
-      state.error = payload.error;
-      state.loading = false;
+      state.regular.error = payload.error;
+      state.regular.loading = false;
     },
     SavePremium(state, { payload }) {
-      state.premium = payload.data;
+      state.premium.posts = payload.data;
+    },
+    loadingPremium(state) {
+      state.premium.loading = !state.premium.loading;
+    },
+    errorPremium(state, { payload }) {
+      state.premium.error = payload.error;
     },
   },
 });
