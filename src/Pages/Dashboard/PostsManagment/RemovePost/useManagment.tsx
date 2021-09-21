@@ -1,11 +1,15 @@
 import axios from "axios";
 import { API } from "assets/constants/consts";
-import { useSelector } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useCallback } from "react";
+import { AdminActions } from "redux/Admin/Admin";
+import { RootState } from "redux/store";
 
 export default function useManagment() {
   const user = useSelector((state: any) => state.user);
-  const [refresh, setRefresh] = useState(0);
+  const dispatch = useDispatch();
+
+  const refresh = () => dispatch(AdminActions.setPostsRefresh());
 
   async function Publish(id: number) {
     axios
@@ -20,9 +24,7 @@ export default function useManagment() {
           },
         }
       )
-      .then(
-        ({ data }) => data.message === "Updated" && setRefresh(refresh + 1)
-      );
+      .then(({ data }) => data.message === "Updated" && refresh());
   }
 
   async function Remove(id: number) {
@@ -32,9 +34,7 @@ export default function useManagment() {
           token: user.token,
         },
       })
-      .then(
-        ({ data }) => data.message === "Deleted" && setRefresh(refresh + 1)
-      );
+      .then(({ data }) => data.message === "Deleted" && refresh());
   }
 
   async function Hide(id: number) {
@@ -48,40 +48,46 @@ export default function useManagment() {
           },
         }
       )
-      .then(
-        ({ data }) => data.message === "Updated" && setRefresh(refresh + 1)
-      );
+      .then(({ data }) => data.message === "Updated" && refresh());
   }
 
-  const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useState([]);
+  const { loading, posts, error } = useSelector(
+    (state: RootState) => state.admin.posts
+  );
 
   const GetAll = useCallback(async () => {
     try {
-      setLoading(true);
+      dispatch(AdminActions.setPostsLoading());
       const response = await axios.get(`${API}/admin/posts/get/all`, {
         headers: {
           token: user.token,
         },
       });
-      setPosts(response.data);
-      setLoading(false);
-    } catch (error) {
-      setLoading(true);
+      dispatch(AdminActions.setPosts({ posts: response.data }));
+      dispatch(AdminActions.setPostsLoading());
+    } catch (error: any) {
+      dispatch(
+        AdminActions.setPostsError({
+          error: error.response.data.message || "Wystąpił błąd",
+        })
+      );
+      dispatch(AdminActions.setPostsLoading());
     }
-  }, [user.token]);
+  }, [user.token, dispatch]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     GetAll();
-  }, [refresh, user.token, GetAll]);
+  }, [user.token, GetAll, reFetch]); */
 
   return {
     Publish,
     Remove,
     Hide,
+    All: GetAll,
     data: {
-      posts,
       loading,
+      posts,
+      error,
     },
   };
 }

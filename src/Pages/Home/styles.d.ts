@@ -8,6 +8,12 @@ export const Container = styled.main`
   .content {
     transition: all 150ms linear;
 
+    &__flex-center {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
     &__headings {
       color: black;
       padding: 15px;
