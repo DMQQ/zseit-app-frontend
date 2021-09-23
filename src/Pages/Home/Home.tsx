@@ -8,9 +8,7 @@ import Overview from "Modules/Overview/Overview";
 
 export default function Home() {
   document.title = "Programista ZSEIT";
-
   const { posts } = useSelector((state: RootState) => state.posts.regular);
-
   return (
     <Styled.Container>
       <Overview />

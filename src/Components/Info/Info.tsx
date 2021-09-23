@@ -1,5 +1,7 @@
 import * as Styled from "./styles.d";
 
+// fix styling later
+
 export default function Info() {
   return (
     <Styled.Container>

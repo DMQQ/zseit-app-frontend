@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { API } from "assets/constants/consts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { AdminActions } from "redux/Admin/Admin";
 
 interface onSubmitProps {
   title: string;
@@ -21,6 +22,10 @@ export default function usePosts({ files: images, file }: any) {
   const [filesUploaded, setFilesUploaded] = useState(false);
   const [error, setError] = useState<any>();
 
+  const [details, setDetails] = useState({ redirect: "" });
+
+  const dispatch = useDispatch();
+
   async function onSubmit(props: onSubmitProps) {
     axios
       .post(`${API}/admin/posts/create`, props, {
@@ -31,7 +36,11 @@ export default function usePosts({ files: images, file }: any) {
       .then(async ({ data }) => {
         const id = data.insertId;
         const redirect = data.redirect;
-        console.log(redirect);
+        setDetails({ redirect });
+
+        if (id) {
+          dispatch(AdminActions.setPostsRefresh());
+        }
 
         if (id) {
           setAdded(true);
@@ -98,5 +107,6 @@ export default function usePosts({ files: images, file }: any) {
     fileProgress,
     added,
     error,
+    details,
   };
 }

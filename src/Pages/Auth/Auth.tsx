@@ -1,6 +1,6 @@
 import * as Styled from "./styles.d";
 import { Button, TextField } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useInput from "Hooks/useInput";
 import axios from "axios";
 import { API, USER_PREFIX } from "assets/constants/consts";
@@ -9,6 +9,7 @@ import { UserActions } from "redux/User/user";
 import { useHistory } from "react-router";
 import useLocalStorage from "Hooks/useLocalStorage";
 import { ModalActions } from "redux/Modals/Modals";
+import { RootState } from "redux/store";
 
 export default function Auth() {
   const [email, setEmail] = useState("");
@@ -42,7 +43,7 @@ export default function Auth() {
   const history = useHistory();
   const { addToLocalStorage } = useLocalStorage();
 
-  async function onSubmit(e: any) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (password !== repeatPassword)
@@ -50,22 +51,20 @@ export default function Auth() {
 
     try {
       dispatch(UserActions.loading());
-      const { data, status } = await axios.post(`${API}/auth/register`, {
+      const { data } = await axios.post(`${API}/auth/register`, {
         email,
         password,
       });
 
-      if (status === 200 || status === 201) {
-        dispatch(UserActions.save(data));
-        dispatch(UserActions.loading());
-        addToLocalStorage(USER_PREFIX, {
-          token: data.token,
-          username: data.email,
-          user_id: data.user_id,
-        });
+      dispatch(UserActions.save(data));
+      dispatch(UserActions.loading());
+      addToLocalStorage(USER_PREFIX, {
+        token: data.token,
+        username: data.username,
+        user_id: data.user_id,
+      });
 
-        history.push("/");
-      }
+      history.push("/");
     } catch (error: any) {
       dispatch(
         UserActions.error({
@@ -83,7 +82,7 @@ export default function Auth() {
     dispatch(ModalActions.toggleSideBar());
   }, [dispatch]);
 
-  const { error } = useSelector((state: any) => state.user);
+  const { error } = useSelector((state: RootState) => state.user);
 
   return (
     <Styled.Auth>

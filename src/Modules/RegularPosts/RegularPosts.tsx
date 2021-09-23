@@ -43,13 +43,13 @@ export default function RegularPosts() {
           <NotfoundImage />
         </div>
       )}
-      {error && (
+      {!loading && error && (
         <div className="content__flex-center">
           <Error />
         </div>
       )}
 
-      {loading && (
+      {!posts && loading && (
         <div className="content__flex-center">
           <Spinner />
         </div>
