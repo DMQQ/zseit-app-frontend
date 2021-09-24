@@ -6,7 +6,6 @@ import { API } from "assets/constants/consts";
 import { postsAction } from "redux/Posts/Posts";
 import FilterCategories from "../FilterCategories/FilterCategories";
 import { Button } from "@material-ui/core";
-
 import SearchIcon from "@material-ui/icons/Search";
 import type { RootState } from "redux/store";
 
@@ -21,7 +20,7 @@ export default function SearchForm() {
     try {
       dispatch(postsAction.loading());
       const { data, status } = await axios.get(
-        `${API}/posts/search=${search || "ALL"}/category=${
+        `${API}/posts/q?text=${search || "ALL"}&category=${
           categories || "NULL"
         }`,
         {
@@ -41,7 +40,11 @@ export default function SearchForm() {
         setCategories("NULL");
       }
     } catch (error: any) {
-      dispatch(postsAction.error({ error: error.response.data.message })); // fix later
+      dispatch(
+        postsAction.error({
+          error: error.response.data.message || error.message,
+        })
+      );
       dispatch(postsAction.loading());
     }
   }
